@@ -1,14 +1,6 @@
 
-if require "ensure_packer"() then
-    return
-end
-
 require "plugins"
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-require("nvim-tree").setup()
 
 local opt = vim.opt
 
@@ -33,3 +25,10 @@ keymap("n", "<C-H>", "<C-w><C-H>", default_opts)
 keymap("n", "<C-J>", "<C-w><C-J>", default_opts)
 keymap("n", "<C-K>", "<C-w><C-K>", default_opts)
 keymap("n", "<C-L>", "<C-w><C-L>", default_opts)
+
+
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup()
