@@ -25,6 +25,7 @@ local packer_bootstrap = download_packer()
 -- end
 
 return require('packer').startup(function(use)
+    use "nvim-lua/plenary.nvim" -- I installed this when installing null-ls
     use 'wbthomason/packer.nvim'
     use {
         'nvim-tree/nvim-tree.lua',
@@ -43,6 +44,8 @@ return require('packer').startup(function(use)
     use { 'hrsh7th/cmp-nvim-lsp' }  -- LSP source for nvim-cmp
     use { 'saadparwaiz1/cmp_luasnip' } -- Snippets source for nvim-cmp
     use { 'L3MON4D3/LuaSnip' } -- Snippets plugin
+    -- use { 'jose-elias-alvarez/null-ls.nvim', branch = 'override-temp-dir' } -- null-ls
+    use { 'jose-elias-alvarez/null-ls.nvim' } -- null-ls
 
     if packer_bootstrap then
         require('packer').sync()
