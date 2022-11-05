@@ -10,4 +10,4 @@ opt.wrap = false
 opt.hidden = true -- keep buffers around but hidden
 opt.splitright = true
 opt.number = true
-
+opt.relativenumber = true
