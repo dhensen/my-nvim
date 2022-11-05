@@ -6,5 +6,6 @@ null_ls.setup({
         null_ls.builtins.diagnostics.flake8,
         null_ls.builtins.diagnostics.mypy,
     },
+    temp_dir = '/tmp/null-ls'
 })
 
