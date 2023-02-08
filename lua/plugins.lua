@@ -46,6 +46,15 @@ return require('packer').startup(function(use)
     use { 'L3MON4D3/LuaSnip' } -- Snippets plugin
     use { 'jose-elias-alvarez/null-ls.nvim', requires = { "nvim-lua/plenary.nvim" } } -- null-ls
 
+    use {
+        "nvim-neotest/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-python"
+        }
+    }
     if packer_bootstrap then
         require('packer').sync()
     end

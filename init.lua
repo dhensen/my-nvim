@@ -19,5 +19,6 @@ require('nvim-treesitter.configs').setup {
 
 require 'autocomplete'
 require 'nullls'
+require 'testing'
 
 vim.g.python3_host_prog = "/home/dino/.nvim-venv/bin/python3"
