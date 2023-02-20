@@ -55,7 +55,39 @@ return require('packer').startup(function(use)
             "nvim-neotest/neotest-python"
         }
     }
+    --use({
+    --    "rebelot/heirline.nvim",
+    --    -- You can optionally lazy-load heirline on UiEnter
+    --    -- to make sure all required plugins and colorschemes are loaded before setup
+    --    -- event = "UiEnter",
+    --    config = function()
+    --        require("heirline").setup()
+    --    end
+    --})
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+            require("rose-pine").setup({
+                dark_variant = 'moon',
+            })
+            --vim.cmd('colorscheme rose-pine')
+            --this is done in ColorMyPencils, because this func runs secondly and undos the Normal bg=none
+        end
+    })
+
+    use { 'theprimeagen/harpoon' }
+    use { 'mbbill/undotree' }
+    use { 'tpope/vim-fugitive' }
+
     if packer_bootstrap then
+    auto_install = true,
         require('packer').sync()
     end
 end)

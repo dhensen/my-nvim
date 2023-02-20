@@ -1,12 +1,14 @@
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local tmp_dir = '/tmp/null-ls'
+vim.fn.mkdir(tmp_dir, 'p')
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.yapf,
         null_ls.builtins.diagnostics.flake8,
         null_ls.builtins.diagnostics.mypy,
     },
-    temp_dir = '/tmp/null-ls',
+    temp_dir = tmp_dir,
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })

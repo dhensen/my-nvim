@@ -19,3 +19,4 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, defaultopts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, defaultopts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, defaultopts)
 
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
