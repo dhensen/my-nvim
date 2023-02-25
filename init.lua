@@ -1,4 +1,3 @@
-
 require "plugins"
 require "keybindings"
 require "options"
@@ -8,8 +7,8 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup()
 
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+-- vim.o.background = "dark" -- or "light" for light mode
+-- vim.cmd([[colorscheme gruvbox]])
 
 require('nvim-treesitter.configs').setup {
     ensure_installed = { "help", "python", "javascript", "lua", "typescript", "go", "rust", "c", "php" },
@@ -34,14 +33,16 @@ vim.keymap.set('n', '<leader>fs', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end)
 
+
+vim.g.python3_host_prog = "/home/dino/.nvim-venv/bin/python3"
+
 function ColorMyPencils(color)
     color = color or "rose-pine"
     vim.cmd.colorscheme(color)
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    -- enable these if you want transparent bg:
+    -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 ColorMyPencils()
-
-vim.g.python3_host_prog = "/home/dino/.nvim-venv/bin/python3"

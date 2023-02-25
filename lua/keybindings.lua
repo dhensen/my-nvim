@@ -20,3 +20,32 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, defaultopts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, defaultopts)
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+vim.keymap.set("x", "<leader>p", "\"_dP")
+vim.keymap.set("x", "<leader>P", "\"_d\"+P")
+
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
+
+vim.keymap.set("n", "<leader>d", "\"_d")
+vim.keymap.set("v", "<leader>d", "\"_d")
+
+-- this prevents from going into Ex mode
+vim.keymap.set("n", "Q", "<nop>")
+
+keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
+
+-- Resizing panes
+keymap("n", "<Left>", ":vertical resize +1<CR>", default_opts)
+keymap("n", "<Right>", ":vertical resize -1<CR>", default_opts)
+keymap("n", "<Up>", ":resize -1<CR>", default_opts)
+keymap("n", "<Down>", ":resize +1<CR>", default_opts)
+
+-- Better indent: stay in visual mode after changing indent
+keymap("v", "<", "<gv", default_opts)
+keymap("v", ">", ">gv", default_opts)
+
+-- Better escape using jk in insert and terminal mode
+keymap("i", "jk", "<ESC>", default_opts)
+keymap("t", "jk", "<C-\\><C-n>", default_opts)

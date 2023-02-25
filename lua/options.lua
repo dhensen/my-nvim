@@ -6,8 +6,26 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
+opt.smartindent = true
 opt.wrap = false
 opt.hidden = true -- keep buffers around but hidden
 opt.splitright = true
 opt.number = true
 opt.relativenumber = true
+opt.guicursor = ""
+
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+opt.undofile = true
+
+opt.hlsearch = true
+opt.incsearch = true
+
+opt.termguicolors = true
+opt.scrolloff = 8
+
+opt.signcolumn = "auto"
+
+opt.updatetime = 50
+opt.colorcolumn = "100"

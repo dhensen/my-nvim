@@ -55,15 +55,6 @@ return require('packer').startup(function(use)
             "nvim-neotest/neotest-python"
         }
     }
-    --use({
-    --    "rebelot/heirline.nvim",
-    --    -- You can optionally lazy-load heirline on UiEnter
-    --    -- to make sure all required plugins and colorschemes are loaded before setup
-    --    -- event = "UiEnter",
-    --    config = function()
-    --        require("heirline").setup()
-    --    end
-    --})
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         -- or                            , branch = '0.1.x',
@@ -85,6 +76,41 @@ return require('packer').startup(function(use)
     use { 'theprimeagen/harpoon' }
     use { 'mbbill/undotree' }
     use { 'tpope/vim-fugitive' }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+    use({
+        "kylechui/nvim-surround",
+        tag = "*",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
+    use {
+        'rmagatti/auto-session',
+        config = function()
+            require("auto-session").setup {
+                log_level = "error",
+                auto_restore_enabled = false,
+                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "~/work", "/"},
+            }
+        end
+    }
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
+    }
+    use {
+        'goolord/alpha-nvim',
+        config = function ()
+            require'alpha'.setup(require'alpha.themes.theta'.config)
+        end
+    }
 
     if packer_bootstrap then
     auto_install = true,
