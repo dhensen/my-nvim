@@ -111,6 +111,10 @@ return require('packer').startup(function(use)
             require'alpha'.setup(require'alpha.themes.theta'.config)
         end
     }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 
     if packer_bootstrap then
     auto_install = true,

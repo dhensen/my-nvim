@@ -17,6 +17,13 @@ require('nvim-treesitter.configs').setup {
     indent = { enable = true }
 }
 
+require('lualine').setup({
+    options = {
+        -- theme = 'palenight'
+        theme = 'auto'
+    }
+})
+
 require 'autocomplete'
 require 'nullls'
 require 'testing'
