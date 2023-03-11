@@ -41,10 +41,10 @@ vim.keymap.set('n', '<leader>fs', function()
 end)
 
 
-vim.g.python3_host_prog = "/home/dino/.nvim-venv/bin/python3"
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.nvim-venv/bin/python3"
 
 function ColorMyPencils(color)
-    color = color or "rose-pine"
+    color = color or "rose-pine-moon"
     vim.cmd.colorscheme(color)
 
     -- enable these if you want transparent bg:
@@ -53,3 +53,13 @@ function ColorMyPencils(color)
 end
 
 ColorMyPencils()
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})

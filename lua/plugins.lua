@@ -108,7 +108,7 @@ return require('packer').startup(function(use)
     use {
         'goolord/alpha-nvim',
         config = function ()
-            require'alpha'.setup(require'alpha.themes.theta'.config)
+            require'alpha'.setup(require'alpha.themes.theta'.config)  -- TODO copy this theme and customize
         end
     }
     use {
@@ -116,8 +116,9 @@ return require('packer').startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
+    use { "williamboman/mason.nvim" }
+
     if packer_bootstrap then
-    auto_install = true,
         require('packer').sync()
     end
 end)
