@@ -42,6 +42,8 @@ keymap("n", "<Right>", ":vertical resize -1<CR>", default_opts)
 keymap("n", "<Up>", ":resize -1<CR>", default_opts)
 keymap("n", "<Down>", ":resize +1<CR>", default_opts)
 
+keymap("n", "<leader>e", ":RunFile<CR>", default_opts)
+
 -- Better indent: stay in visual mode after changing indent
 keymap("v", "<", "<gv", default_opts)
 keymap("v", ">", ">gv", default_opts)
