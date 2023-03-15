@@ -1,4 +1,5 @@
-vim.g.mapleader = ","
+--keybindings
+
 local opt = vim.opt
 
 opt.tabstop = 4
@@ -15,7 +16,7 @@ opt.guicursor = ""
 
 opt.swapfile = false
 opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+opt.undodir = os.getenv "HOME" .. "/.config/nvim/undodir"
 opt.undofile = true
 
 opt.hlsearch = true

@@ -142,13 +142,15 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-    use { 'CRAG666/code_runner.nvim',
-        requires = 'nvim-lua/plenary.nvim' ,
-        config = function ()
-            require("code_runner").setup()
-        end}
+	use({
+		"CRAG666/code_runner.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("code_runner").setup()
+		end,
+	})
 
-    if packer_bootstrap then
-        require('packer').sync()
-    end
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
