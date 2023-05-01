@@ -8,6 +8,7 @@ vim.g.maplocalleader = " "
 
 -- Mappings.
 keymap("n", "<leader>n", ":NvimTreeToggle<CR>", default_opts)
+keymap("n", "<leader>j", ":NvimTreeFindFile<CR>", default_opts)
 
 keymap("n", "<C-H>", "<C-w><C-H>", default_opts)
 keymap("n", "<C-J>", "<C-w><C-J>", default_opts)
