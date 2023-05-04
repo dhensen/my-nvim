@@ -163,6 +163,12 @@ return require("packer").startup(function(use)
     }
 
     use "rebelot/kanagawa.nvim"
+    use {"kevinhwang91/nvim-bqf", ft = 'qf'}
+
+    use { "yorickpeterse/nvim-pqf", config = function() 
+        require('pqf').setup()
+    end}
+
     if packer_bootstrap then
         require("packer").sync()
     end
