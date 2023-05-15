@@ -29,3 +29,8 @@ opt.signcolumn = "auto"
 
 opt.updatetime = 50
 opt.colorcolumn = "100"
+
+-- ignorecase by default, then add smartcase
+-- as soon as you start adding capital case chars, it will switch so case sensitive
+opt.ignorecase = true
+opt.smartcase = true
