@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 -- vim.cmd([[colorscheme gruvbox]])
 
 require("nvim-treesitter.configs").setup {
-    ensure_installed = { "help", "python", "javascript", "lua", "typescript", "go", "rust", "c", "php" },
+    ensure_installed = { "vimdoc", "python", "javascript", "lua", "typescript", "go", "rust", "c", "php" },
     sync_install = false,
     highlight = { enable = true, additional_vim_regex_highlighting = false },
     indent = { enable = true },
