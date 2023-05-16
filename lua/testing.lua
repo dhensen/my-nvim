@@ -1,9 +1,11 @@
-
-require("neotest").setup({
+require("neotest").setup {
     adapters = {
-        require("neotest-python")
-    }
-})
+        require "neotest-python" {
+            args = { "-svv" },
+            runner = "pytest",
+        },
+    },
+}
 
 vim.api.nvim_create_user_command("NeotestRun", require("neotest").run.run, {})
 vim.api.nvim_create_user_command("NeotestOutput", require("neotest").output.open, {})
