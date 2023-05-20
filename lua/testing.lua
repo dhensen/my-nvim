@@ -2,6 +2,7 @@ require("neotest").setup {
     adapters = {
         require "neotest-python" {
             args = { "-svv" },
+            dap = { justMyCode = false },
             runner = "pytest",
         },
     },
