@@ -39,6 +39,7 @@ require("lualine").setup {
         icons_enabled = true,
         -- theme = 'palenight'
         theme = "auto",
+        globalstatus = true,
     },
 }
 
