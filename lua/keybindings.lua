@@ -58,12 +58,14 @@ keymap("t", "jk", "<C-\\><C-n>", default_opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
-local builtin = require "telescope.builtin"
-vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
-vim.keymap.set("n", "<C-p>", builtin.git_files, {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+local telescope_builtin = require "telescope.builtin"
+vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {})
+vim.keymap.set("n", "<C-p>", telescope_builtin.git_files, {})
+vim.keymap.set("n", "<leader>fw", telescope_builtin.grep_string, {})
+vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, {})
+vim.keymap.set("n", "<leader>fk", telescope_builtin.keymaps, { desc = "Telescope: keymaps" })
 vim.keymap.set("n", "<leader>fs", function()
-  builtin.grep_string { search = vim.fn.input "Grep > " }
+    telescope_builtin.grep_string { search = vim.fn.input "Grep > " }
 end)

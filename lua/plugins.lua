@@ -40,12 +40,12 @@ return require("packer").startup(function(use)
         end,
     }
     use { "ellisonleao/gruvbox.nvim" }
-    use { "neovim/nvim-lspconfig" }                                                   -- Configurations for Nvim LSP
+    use { "neovim/nvim-lspconfig" } -- Configurations for Nvim LSP
 
-    use { "hrsh7th/nvim-cmp" }                                                        -- Autocompletion plugin
-    use { "hrsh7th/cmp-nvim-lsp" }                                                    -- LSP source for nvim-cmp
-    use { "saadparwaiz1/cmp_luasnip" }                                                -- Snippets source for nvim-cmp
-    use { "L3MON4D3/LuaSnip" }                                                        -- Snippets plugin
+    use { "hrsh7th/nvim-cmp" } -- Autocompletion plugin
+    use { "hrsh7th/cmp-nvim-lsp" } -- LSP source for nvim-cmp
+    use { "saadparwaiz1/cmp_luasnip" } -- Snippets source for nvim-cmp
+    use { "L3MON4D3/LuaSnip" } -- Snippets plugin
     use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } } -- null-ls
 
     use {
@@ -155,19 +155,22 @@ return require("packer").startup(function(use)
         config = function()
             vim.keymap.set("n", "<leader>dd", function()
                 require("duck").hatch()
-            end, {})
+            end, { desc = "Duck: hatch" })
             vim.keymap.set("n", "<leader>dk", function()
                 require("duck").cook()
-            end, {})
+            end, { desc = "Duck: cook" })
         end,
     }
 
     use "rebelot/kanagawa.nvim"
-    use { "kevinhwang91/nvim-bqf", ft = 'qf' }
+    use { "kevinhwang91/nvim-bqf", ft = "qf" }
 
-    use { "yorickpeterse/nvim-pqf", config = function()
-        require('pqf').setup()
-    end }
+    use {
+        "yorickpeterse/nvim-pqf",
+        config = function()
+            require("pqf").setup()
+        end,
+    }
 
     if packer_bootstrap then
         require("packer").sync()
