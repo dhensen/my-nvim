@@ -34,3 +34,5 @@ opt.colorcolumn = "100"
 -- as soon as you start adding capital case chars, it will switch so case sensitive
 opt.ignorecase = true
 opt.smartcase = true
+
+opt.winbar = "%=%m %f"
