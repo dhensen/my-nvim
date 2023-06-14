@@ -52,7 +52,10 @@ require "fugitive"
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
 function ColorMyPencils(color)
-    color = color or "rose-pine-moon"
+    color = color or "rose-pine"
+    require("rose-pine").setup {
+        dark_variant = "moon",
+    }
     vim.cmd.colorscheme(color)
 
     -- enable these if you want transparent bg:
