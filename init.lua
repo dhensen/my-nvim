@@ -37,8 +37,8 @@ require("nvim-treesitter.configs").setup {
 require("lualine").setup {
     options = {
         icons_enabled = true,
-        -- theme = 'palenight'
-        theme = "auto",
+        theme = 'palenight',
+        -- theme = "auto",
         globalstatus = true,
     },
 }
@@ -53,6 +53,7 @@ vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
 function ColorMyPencils(color)
     color = color or "rose-pine"
+    -- color = color or "tokyonight-day"
     require("rose-pine").setup {
         dark_variant = "moon",
     }
@@ -77,3 +78,16 @@ require("mason").setup {
 
 -- hide tilde for empty lines
 vim.cmd [[hi NonText guifg=bg]]
+
+-- vim.cmd([[
+--   augroup disable_lsp_json
+--     autocmd!
+--     autocmd BufEnter *.json if vim.fn.getfsize(vim.fn.expand('%')) > 1048576 | let b:did_disable_lsp = 1 | set filetype=json_nols | endif
+--     autocmd BufEnter *.json if exists('b:did_disable_lsp') | echom "LSP disabled for large JSON file" | endif
+--   augroup END
+-- ]])
+vim.cmd([[augroup disable_lsp_json
+  autocmd!
+  autocmd BufEnter *.json if getfsize(expand('%')) > 1048576 | setlocal filetype=json_nols | echom "LSP disabled for large JSON file" | endif
+augroup END
+]])
