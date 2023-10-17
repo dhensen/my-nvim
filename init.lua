@@ -6,6 +6,7 @@ require "options"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+require("telescope").load_extension "fzf"
 require("nvim-tree").setup()
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
