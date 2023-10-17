@@ -38,7 +38,7 @@ require("nvim-treesitter.configs").setup {
 require("lualine").setup {
     options = {
         icons_enabled = true,
-        theme = 'palenight',
+        theme = "palenight",
         -- theme = "auto",
         globalstatus = true,
     },
@@ -47,7 +47,6 @@ require("lualine").setup {
 require "autocomplete"
 require "nullls"
 require "testing"
-require "harpon"
 require "fugitive"
 
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
@@ -87,8 +86,8 @@ vim.cmd [[hi NonText guifg=bg]]
 --     autocmd BufEnter *.json if exists('b:did_disable_lsp') | echom "LSP disabled for large JSON file" | endif
 --   augroup END
 -- ]])
-vim.cmd([[augroup disable_lsp_json
+vim.cmd [[augroup disable_lsp_json
   autocmd!
   autocmd BufEnter *.json if getfsize(expand('%')) > 1048576 | setlocal filetype=json_nols | echom "LSP disabled for large JSON file" | endif
 augroup END
-]])
+]]
