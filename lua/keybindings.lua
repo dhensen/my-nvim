@@ -60,6 +60,9 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
 local builtin = require "telescope.builtin"
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "telescope find_files" })
+-- vim.keymap.set("n", "<leader>ffa", function()
+--     builtin.find_files { no_ignore = true, hidden = true, find_command = { "fd" } }
+-- end, { desc = "telescope find_files" })
 vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "telescope git_files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "telescope live_grep" })
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "telescope grep_string" })
