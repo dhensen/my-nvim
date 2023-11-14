@@ -91,3 +91,15 @@ vim.cmd [[augroup disable_lsp_json
   autocmd BufEnter *.json if getfsize(expand('%')) > 1048576 | setlocal filetype=json_nols | echom "LSP disabled for large JSON file" | endif
 augroup END
 ]]
+
+in_wsl = os.getenv "WSL_DISTRO_NAME" ~= nil
+
+if in_wsl then
+    local script_path = vim.fn.stdpath "config" .. "/nvim_paste"
+    vim.g.clipboard = {
+        name = "wsl clipboard",
+        copy = { ["+"] = { "clip.exe" }, ["*"] = { "clip.exe" } },
+        paste = { ["+"] = { script_path }, ["*"] = { script_path } },
+        cache_enabled = true,
+    }
+end
