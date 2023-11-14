@@ -48,7 +48,7 @@ local lsp_flags = {
 }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "pyright", "lua_ls", "tsserver" }
+local servers = { "pyright", "lua_ls", "tsserver", "ruff_lsp" }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {}
 end

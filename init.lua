@@ -75,6 +75,9 @@ require("mason").setup {
         },
     },
 }
+require("mason-nvim-dap").setup({
+    ensure_installed = { "python" }
+})
 
 -- hide tilde for empty lines
 vim.cmd [[hi NonText guifg=bg]]
