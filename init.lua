@@ -29,10 +29,12 @@ require("nvim-treesitter.configs").setup {
     sync_install = false,
     highlight = { enable = true, additional_vim_regex_highlighting = false },
     indent = { enable = true },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-    },
+    -- context_commentstring nvim-treesitter module is deprecated, use require('ts_context_commentstring').setup {} and set vim.g.skip_ts_context_commentstring_module = true to speed up loading instead.
+    -- This feature will be removed in ts_context_commentstring version in the future (see https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/82 for more info)
+    -- context_commentstring = {
+    --     enable = true,
+    --     enable_autocmd = false,
+    -- },
 }
 
 require("lualine").setup {
@@ -75,9 +77,9 @@ require("mason").setup {
         },
     },
 }
-require("mason-nvim-dap").setup({
-    ensure_installed = { "python" }
-})
+require("mason-nvim-dap").setup {
+    ensure_installed = { "python" },
+}
 
 -- hide tilde for empty lines
 vim.cmd [[hi NonText guifg=bg]]
@@ -106,3 +108,21 @@ if in_wsl then
         cache_enabled = true,
     }
 end
+
+-- Display diagnostics as virtual text only if not in insert mode
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--     pattern = "*",
+--     callback = function()
+--         vim.diagnostic.config {
+--             virtual_text = false,
+--         }
+--     end,
+-- })
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--     pattern = "*",
+--     callback = function()
+--         vim.diagnostic.config {
+--             virtual_text = true,
+--         }
+--     end,
+-- })
