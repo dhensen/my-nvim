@@ -2,8 +2,6 @@
 -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require "lspconfig"
-local navic = require "nvim-navic"
-navic.setup()
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -12,10 +10,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-        -- if client.server_capabilities.documentSymbolProvider then
-        --     navic.attach(client, ev.buf)
-        -- end
 
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
