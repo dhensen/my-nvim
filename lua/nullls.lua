@@ -13,6 +13,7 @@ null_ls.setup {
         null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.diagnostics.luacheck,
+        null_ls.builtins.diagnostics.yamllint,
     },
     temp_dir = tmp_dir,
     on_attach = function(client, bufnr)
