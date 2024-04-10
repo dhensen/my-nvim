@@ -16,7 +16,7 @@ keymap("n", "<C-K>", "<C-w><C-K>", default_opts)
 keymap("n", "<C-L>", "<C-w><C-L>", default_opts)
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, default_opts)
+vim.keymap.set("n", "<space>a", vim.diagnostic.open_float, default_opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, default_opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, default_opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, default_opts)
