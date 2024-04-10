@@ -137,7 +137,12 @@ return require("packer").startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("ibl").setup()
+            require("ibl").setup {
+                indent = {
+                    char = "▏",
+                    tab_char = "▏",
+                },
+            }
         end,
     }
 
