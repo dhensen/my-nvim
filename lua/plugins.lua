@@ -40,11 +40,17 @@ return require("packer").startup(function(use)
         end,
     }
     use { "ellisonleao/gruvbox.nvim" }
-    use { "neovim/nvim-lspconfig" } -- Configurations for Nvim LSP
+
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
 
     use { "hrsh7th/nvim-cmp" } -- Autocompletion plugin
     use { "hrsh7th/cmp-nvim-lsp" } -- LSP source for nvim-cmp
     use { "hrsh7th/cmp-path" } -- LSP source for nvim-cmp
+    use { "hrsh7th/cmp-buffer" } -- LSP source for nvim-cmp
     use { "saadparwaiz1/cmp_luasnip" } -- Snippets source for nvim-cmp
     use { "L3MON4D3/LuaSnip" } -- Snippets plugin
     use { "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim" } } -- null-ls
@@ -122,7 +128,6 @@ return require("packer").startup(function(use)
         requires = { "nvim-tree/nvim-web-devicons", opt = true },
     }
 
-    use { "williamboman/mason.nvim" }
     use {
         "lewis6991/gitsigns.nvim",
         config = function()

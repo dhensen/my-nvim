@@ -42,10 +42,11 @@ local lsp_flags = {
 }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { "pyright", "lua_ls", "tsserver", "ruff_lsp" }
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {}
-end
+lspconfig.pyright.setup {}
+lspconfig.lua_ls.setup {}
+lspconfig.tsserver.setup {}
+lspconfig.ruff_lsp.setup {}
+lspconfig.terraformls.setup {}
 
 -- luasnip setup
 local luasnip = require "luasnip"
@@ -89,5 +90,6 @@ cmp.setup {
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "path" },
+        { name = "buffer" },
     },
 }
