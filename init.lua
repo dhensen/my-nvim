@@ -75,6 +75,11 @@ require("lualine").setup {
                 draw_empty = true,
             },
             "filename",
+            {
+                "navic",
+                color_correction = nil,
+                navic_opts = nil,
+            },
         },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
@@ -89,7 +94,11 @@ require("lualine").setup {
         lualine_z = {},
     },
     tabline = {},
-    winbar = {},
+    winbar = {
+        lualine_c = {
+            { "navic", color_correction = nil, navic_opts = nil },
+        },
+    },
     inactive_winbar = {},
     extensions = {},
 }
