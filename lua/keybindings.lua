@@ -92,7 +92,7 @@ wk.register({
         s = { "<cmd>Git<CR>", "Open Fugitive" },
         b = { "<cmd>Git blame<CR>", "Blame" },
         a = { "<cmd>Git add -p<CR>", "Add -p" },
-        l = { "<cmd>Git log<CR>", "Log" },
+        l = { "<cmd>GlLog<CR>", "Load all previous revisions into quicklist" },
         c = { "<cmd>Git commit<CR>", "Commit" },
     },
     f = {
