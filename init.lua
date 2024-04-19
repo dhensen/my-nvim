@@ -1,6 +1,7 @@
 require "plugins"
 require "keybindings"
 require "options"
+require "auto-theme"
 
 -- prevent netrw from loading because I will use nvim-tree
 vim.g.loaded_netrw = 1
@@ -110,20 +111,20 @@ require "fugitive"
 
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
-function ColorMyPencils(color)
-    color = color or "rose-pine"
-    -- color = color or "tokyonight-day"
-    require("rose-pine").setup {
-        dark_variant = "moon",
-    }
-    vim.cmd.colorscheme(color)
-
-    -- enable these if you want transparent bg:
-    -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-
-ColorMyPencils()
+-- function ColorMyPencils(color)
+--     color = color or "rose-pine"
+--     -- color = color or "tokyonight-day"
+--     require("rose-pine").setup {
+--         dark_variant = "moon",
+--     }
+--     vim.cmd.colorscheme(color)
+--
+--     -- enable these if you want transparent bg:
+--     -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--     -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- end
+--
+-- ColorMyPencils()
 
 require("mason").setup {
     ui = {
