@@ -94,6 +94,9 @@ wk.register({
         a = { "<cmd>Git add -p<CR>", "Add -p" },
         l = { "<cmd>GlLog<CR>", "Load all previous revisions into quicklist" },
         c = { "<cmd>Git commit<CR>", "Commit" },
+        j = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
+        k = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
+        p = { "<cmd>Git push<CR>", "Push" },
     },
     f = {
         name = "Telescope",
