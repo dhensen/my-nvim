@@ -107,7 +107,6 @@ require("lualine").setup {
 require "autocomplete"
 require "nullls"
 require "testing"
-require "fugitive"
 
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
