@@ -204,6 +204,11 @@ return require("packer").startup(function(use)
     }
 
     use {
+        "folke/todo-comments.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+    }
+
+    use {
         "wintermute-cell/gitignore.nvim",
         requires = {
             "nvim-telescope/telescope.nvim",
