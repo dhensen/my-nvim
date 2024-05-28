@@ -119,6 +119,7 @@ wk.register({
         },
     },
     u = { "<cmd>UndotreeToggle<CR>", "UndotreeToggle" },
+    t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
 }, {
     prefix = "<leader>",
 })
