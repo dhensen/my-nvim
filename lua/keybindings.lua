@@ -86,6 +86,11 @@ vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
 vim.g.copilot_no_tab_map = true
 
 local builtin = require "telescope.builtin"
+
+vim.keymap.set("n", "<C-p>", function()
+    builtin.git_files { search_untracked = true }
+end, { desc = "telescope git_files with show untracked" })
+
 wk.register({
     g = {
         name = "Git",
