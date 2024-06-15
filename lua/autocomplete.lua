@@ -42,11 +42,11 @@ local lsp_flags = {
 }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-lspconfig.pyright.setup {}
-lspconfig.lua_ls.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.ruff_lsp.setup {}
-lspconfig.terraformls.setup {}
+lspconfig.pyright.setup { flags = lsp_flags }
+lspconfig.lua_ls.setup { flags = lsp_flags }
+lspconfig.tsserver.setup { flags = lsp_flags }
+lspconfig.ruff_lsp.setup { flags = lsp_flags }
+lspconfig.terraformls.setup { flags = lsp_flags }
 
 -- luasnip setup
 local luasnip = require "luasnip"
