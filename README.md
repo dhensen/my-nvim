@@ -5,6 +5,10 @@
 ```
 mv ~/.config/nvim ~/.config/nvim-backup
 git clone https://github.com/dhensen/my-nvim.git ~/.config/nvim
+
+or
+git clone git@github.com:dhensen/my-nvim.git ~/.config/nvim
+
 nvim
 ```
 
