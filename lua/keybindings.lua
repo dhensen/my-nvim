@@ -91,52 +91,30 @@ vim.keymap.set("n", "<C-p>", function()
     builtin.git_files { search_untracked = true }
 end, { desc = "telescope git_files with show untracked" })
 
-wk.register({
-    g = {
-        name = "Git",
-        s = { "<cmd>Git<CR>", "Open Fugitive" },
-        b = { "<cmd>Git blame<CR>", "Blame" },
-        a = { "<cmd>Git add -p<CR>", "Add -p" },
-        l = { "<cmd>GlLog<CR>", "Load all previous revisions into quicklist" },
-        c = { "<cmd>Git commit<CR>", "Commit" },
-        j = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
-        k = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
-        p = { "<cmd>Git push<CR>", "Push" },
+wk.add {
+    { "<leader>f", group = "Telescope" },
+    { "<leader>fb", builtin.buffers, desc = "Buffers" },
+    { "<leader>ff", builtin.find_files, desc = "Find Files" },
+    { "<leader>fg", builtin.live_grep, desc = "Live Grep" },
+    { "<leader>fh", builtin.help_tags, desc = "Help Tags" },
+    { "<leader>fk", builtin.keymaps, desc = "Keymaps" },
+    {
+        "<leader>fs",
+        function()
+            builtin.grep_string { search = vim.fn.input "Grep > " }
+        end,
+        desc = "Grep String with custom input",
     },
-    f = {
-        name = "Telescope",
-        f = { builtin.find_files, "Find Files" },
-        g = { builtin.live_grep, "Live Grep" },
-        w = { builtin.grep_string, "Grep String" },
-        b = { builtin.buffers, "Buffers" },
-        h = { builtin.help_tags, "Help Tags" },
-        k = { builtin.keymaps, "Keymaps" },
-        s = {
-            function()
-                builtin.grep_string { search = vim.fn.input "Grep > " }
-            end,
-            "Grep String with custom input",
-        },
-    },
-    u = { "<cmd>UndotreeToggle<CR>", "UndotreeToggle" },
-    t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
-}, {
-    prefix = "<leader>",
-})
-
--- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "telescope find_files" })
--- -- vim.keymap.set("n", "<leader>ffa", function()
--- --     builtin.find_files { no_ignore = true, hidden = true, find_command = { "fd" } }
--- -- end, { desc = "telescope find_files" })
--- vim.keymap.set("n", "<C-p>", function()
---     builtin.git_files { search_untracked = true }
--- end, { desc = "telescope git_files with show untracked" })
--- vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "telescope live_grep" })
--- vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "telescope grep_string" })
--- vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "telescope buffers" })
--- vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "telescope help_tags" })
--- vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "telescope keymaps" })
--- vim.keymap.set("n", "<leader>fs", function()
---     builtin.grep_string { search = vim.fn.input "Grep > " }
--- end, { desc = "telescope grep_string with custom input" })
---
+    { "<leader>fw", builtin.grep_string, desc = "Grep String" },
+    { "<leader>g", group = "Git" },
+    { "<leader>ga", "<cmd>Git add -p<CR>", desc = "Add -p" },
+    { "<leader>gb", "<cmd>Git blame<CR>", desc = "Blame" },
+    { "<leader>gc", "<cmd>Git commit<CR>", desc = "Commit" },
+    { "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", desc = "Next Hunk" },
+    { "<leader>gk", "<cmd>Gitsigns prev_hunk<CR>", desc = "Prev Hunk" },
+    { "<leader>gl", "<cmd>GlLog<CR>", desc = "Load all previous revisions into quicklist" },
+    { "<leader>gp", "<cmd>Git push<CR>", desc = "Push" },
+    { "<leader>gs", "<cmd>Git<CR>", desc = "Open Fugitive" },
+    { "<leader>t", "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal" },
+    { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "UndotreeToggle" },
+}
