@@ -34,7 +34,7 @@ null_ls.setup {
             })
         end
         if client.server_capabilities.documentSymbolProvider then
-            navic.attach(client, ev.buf)
+            navic.attach(client, bufnr)
         end
     end,
 }
