@@ -36,3 +36,4 @@ opt.ignorecase = true
 opt.smartcase = true
 
 opt.winbar = "%=%m %f"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,localoptions"
