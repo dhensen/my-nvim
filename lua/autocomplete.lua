@@ -43,9 +43,24 @@ local lsp_flags = {
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 lspconfig.pyright.setup { flags = lsp_flags }
+-- lspconfig.pyright.setup {
+--     flags = lsp_flags,
+--     settings = {
+--         pyright = {
+--             -- Using Ruff's import organizer
+--             disableOrganizeImports = true,
+--         },
+--         python = {
+--             analysis = {
+--                 -- Ignore all files for analysis to exclusively use Ruff for linting
+--                 ignore = { "*" },
+--             },
+--         },
+--     },
+-- }
 lspconfig.lua_ls.setup { flags = lsp_flags }
 lspconfig.tsserver.setup { flags = lsp_flags }
-lspconfig.ruff_lsp.setup { flags = lsp_flags }
+lspconfig.ruff.setup { flags = lsp_flags }
 lspconfig.terraformls.setup { flags = lsp_flags }
 
 -- luasnip setup

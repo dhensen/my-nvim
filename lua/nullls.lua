@@ -11,8 +11,8 @@ null_ls.setup {
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.terraform_fmt,
-        null_ls.builtins.formatting.prettierd,
-        null_ls.builtins.formatting.yapf,
+        null_ls.builtins.formatting.prettier,
+        -- null_ls.builtins.formatting.yapf,
     },
     temp_dir = tmp_dir,
     on_attach = function(client, bufnr)
@@ -24,9 +24,9 @@ null_ls.setup {
                 callback = function()
                     vim.lsp.buf.format {
                         bufnr = bufnr,
-                        filter = function(client_)
-                            return client_.name == "null-ls"
-                        end,
+                        -- filter = function(client_)
+                        --     return client_.name == "null-ls"
+                        -- end,
                     }
                 end,
             })

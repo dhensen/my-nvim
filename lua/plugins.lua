@@ -53,7 +53,7 @@ return require("packer").startup(function(use)
     use { "hrsh7th/cmp-buffer" } -- LSP source for nvim-cmp
     use { "saadparwaiz1/cmp_luasnip" } -- Snippets source for nvim-cmp
     use { "L3MON4D3/LuaSnip" } -- Snippets plugin
-    use { "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim" } } -- null-ls
+    use { "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" } } -- null-ls
 
     use {
         "nvim-neotest/neotest",
