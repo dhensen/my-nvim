@@ -59,7 +59,7 @@ lspconfig.pyright.setup { flags = lsp_flags }
 --     },
 -- }
 lspconfig.lua_ls.setup { flags = lsp_flags }
-lspconfig.tsserver.setup { flags = lsp_flags }
+lspconfig.ts_ls.setup { flags = lsp_flags }
 lspconfig.ruff.setup { flags = lsp_flags }
 lspconfig.terraformls.setup { flags = lsp_flags }
 
