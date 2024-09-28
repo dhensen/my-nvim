@@ -149,10 +149,10 @@ require("mason-nvim-dap").setup {
 }
 
 require("large-files").setup {
-    size = 1048576,
+    size = 1048576, -- Default size (1 MB)
     filetypes = {
-        json = "json_nols",
-        xml = "xml_nols",
+        json = 1048576,
+        xml = 2097152,
     },
 }
 

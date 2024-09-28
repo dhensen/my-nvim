@@ -1,21 +1,11 @@
--- usage:
--- require("large-files").setup {
---     size = 1048576,
---     filetypes = {
---         json = "json_nols",
---         xml = "xml_nols",
---     },
--- }
---
--- @copilot: implement the `setup` function
-
 local M = {}
 
 function M.setup(opts)
-    local size = opts.size or 1048576
+    local default_size = opts.size or 1048576
     local filetypes = opts.filetypes or {}
 
-    for filetype, new_filetype in pairs(filetypes) do
+    for filetype, size in pairs(filetypes) do
+        local size_threshold = size or default_size
         local group_name = "disable_lsp_" .. filetype
         local group = vim.api.nvim_create_augroup(group_name, { clear = true })
 
@@ -24,8 +14,12 @@ function M.setup(opts)
             pattern = "*." .. filetype,
             callback = function()
                 local file_size = vim.fn.getfsize(vim.fn.expand "%:p")
-                if file_size > size then
-                    vim.bo.filetype = new_filetype
+                if file_size > size_threshold then
+                    local bufnr = vim.api.nvim_get_current_buf()
+                    local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+                    for _, client in pairs(clients) do
+                        vim.lsp.buf_detach_client(bufnr, client.id)
+                    end
                     vim.notify("LSP disabled for large " .. filetype .. " file", vim.log.levels.INFO)
                 end
             end,
@@ -34,25 +28,3 @@ function M.setup(opts)
 end
 
 return M
-
--- vim.cmd([[
---   augroup disable_lsp_json
---     autocmd!
---     autocmd BufEnter *.json if vim.fn.getfsize(vim.fn.expand('%')) > 1048576 | let b:did_disable_lsp = 1 | set filetype=json_nols | endif
---     autocmd BufEnter *.json if exists('b:did_disable_lsp') | echom "LSP disabled for large JSON file" | endif
---   augroup END
--- ]])
-
--- -- disable LSP for large JSON file
--- vim.cmd [[augroup disable_lsp_json
---   autocmd!
---   autocmd BufEnter *.json if getfsize(expand('%')) > 1048576 | setlocal filetype=json_nols | echom "LSP disabled for large JSON file" | endif
--- augroup END
--- ]]
---
--- -- disable LSP for large XML file
--- vim.cmd [[augroup disable_lsp_xml
---   autocmd!
---   autocmd BufEnter *.xml if getfsize(expand('%')) > 1048576 | setlocal filetype=xml_nols | echom "LSP disabled for large XML file" | endif
--- augroup END
--- ]]
