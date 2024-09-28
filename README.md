@@ -14,3 +14,7 @@ nvim
 
 The first line backs up your existing neovim config if you have it.
 It will open up neovim and install plugins etc.
+
+## Issues
+
+- After moving from packer to Lazy, TSUpdate runs on every restart. Run :checkhealth and search for `packer` remove left over dirs/files and you're good.
