@@ -148,21 +148,16 @@ require("mason-nvim-dap").setup {
     ensure_installed = { "python" },
 }
 
+require("large-files").setup {
+    size = 1048576,
+    filetypes = {
+        json = "json_nols",
+        xml = "xml_nols",
+    },
+}
+
 -- hide tilde for empty lines
 vim.cmd [[hi NonText guifg=bg]]
-
--- vim.cmd([[
---   augroup disable_lsp_json
---     autocmd!
---     autocmd BufEnter *.json if vim.fn.getfsize(vim.fn.expand('%')) > 1048576 | let b:did_disable_lsp = 1 | set filetype=json_nols | endif
---     autocmd BufEnter *.json if exists('b:did_disable_lsp') | echom "LSP disabled for large JSON file" | endif
---   augroup END
--- ]])
-vim.cmd [[augroup disable_lsp_json
-  autocmd!
-  autocmd BufEnter *.json if getfsize(expand('%')) > 1048576 | setlocal filetype=json_nols | echom "LSP disabled for large JSON file" | endif
-augroup END
-]]
 
 in_wsl = os.getenv "WSL_DISTRO_NAME" ~= nil
 
