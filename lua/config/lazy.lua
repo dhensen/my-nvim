@@ -27,9 +27,9 @@ require("lazy").setup {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
-            local configs = require("nvim-treesitter.configs")
+            local configs = require "nvim-treesitter.configs"
 
-            configs.setup({
+            configs.setup {
                 ensure_installed = {
                     "vimdoc",
                     "python",
@@ -52,8 +52,8 @@ require("lazy").setup {
                 --     enable = true,
                 --     enable_autocmd = false,
                 -- },
-            })
-        end
+            }
+        end,
     },
 
     { "ellisonleao/gruvbox.nvim" },
@@ -129,9 +129,9 @@ require("lazy").setup {
         "rmagatti/auto-session",
         config = function()
             require("auto-session").setup {
+                auto_restore = false,
                 log_level = "error",
-                auto_restore_enabled = false,
-                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "~/work", "/" },
+                suppressed_dirs = { "~/", "~/Downloads", "~/work", "/" },
             }
         end,
     },
