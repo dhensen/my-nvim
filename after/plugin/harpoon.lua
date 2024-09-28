@@ -1,3 +1,4 @@
+-- TODO: convert to harpoon2, see https://github.com/ThePrimeagen/harpoon/tree/harpoon2
 local mark = require "harpoon.mark"
 local ui = require "harpoon.ui"
 
