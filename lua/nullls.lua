@@ -6,8 +6,8 @@ navic.setup()
 vim.fn.mkdir(tmp_dir, "p")
 null_ls.setup {
     sources = {
-        null_ls.builtins.diagnostics.flake8,
-        null_ls.builtins.diagnostics.luacheck,
+        require("none-ls.diagnostics.ruff"),
+        -- null_ls.builtins.diagnostics.luacheck,
         null_ls.builtins.diagnostics.mypy,
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.formatting.black,
