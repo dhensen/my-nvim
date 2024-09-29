@@ -1,8 +1,6 @@
 local null_ls = require "null-ls"
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local tmp_dir = "/tmp/null-ls"
-local navic = require "nvim-navic"
-navic.setup()
 vim.fn.mkdir(tmp_dir, "p")
 null_ls.setup {
     sources = {
@@ -30,9 +28,6 @@ null_ls.setup {
                     }
                 end,
             })
-        end
-        if client.server_capabilities.documentSymbolProvider then
-            navic.attach(client, bufnr)
         end
     end,
 }
