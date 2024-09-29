@@ -1,10 +1,9 @@
 local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local wk = require "which-key"
-require "trouble"
+require("trouble").setup {}
 
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
-
 
 -- Mappings.
 keymap("n", "<leader>n", ":NvimTreeToggle<CR>", default_opts)
