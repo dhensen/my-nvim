@@ -1,6 +1,7 @@
 local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local wk = require "which-key"
+require "trouble"
 
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
 
@@ -58,24 +59,24 @@ keymap("t", "jk", "<C-\\><C-n>", default_opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
-vim.keymap.set("n", "<leader>xx", function()
-    require("trouble").toggle()
-end)
-vim.keymap.set("n", "<leader>xw", function()
-    require("trouble").toggle "workspace_diagnostics"
-end)
-vim.keymap.set("n", "<leader>xd", function()
-    require("trouble").toggle "document_diagnostics"
-end)
-vim.keymap.set("n", "<leader>xq", function()
-    require("trouble").toggle "quickfix"
-end)
-vim.keymap.set("n", "<leader>xl", function()
-    require("trouble").toggle "loclist"
-end)
-vim.keymap.set("n", "gR", function()
-    require("trouble").toggle "lsp_references"
-end)
+-- vim.keymap.set("n", "<leader>xx", function()
+--     require("trouble").toggle()
+-- end)
+-- vim.keymap.set("n", "<leader>xw", function()
+--     require("trouble").toggle "workspace_diagnostics"
+-- end)
+-- vim.keymap.set("n", "<leader>xd", function()
+--     require("trouble").toggle "document_diagnostics"
+-- end)
+-- vim.keymap.set("n", "<leader>xq", function()
+--     require("trouble").toggle "quickfix"
+-- end)
+-- vim.keymap.set("n", "<leader>xl", function()
+--     require("trouble").toggle "loclist"
+-- end)
+-- vim.keymap.set("n", "gR", function()
+--     require("trouble").toggle "lsp_references"
+-- end)
 
 vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
     expr = true,
@@ -110,9 +111,31 @@ wk.add {
     { "<leader>gc", "<cmd>Git commit<CR>", desc = "Commit" },
     { "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", desc = "Next Hunk" },
     { "<leader>gk", "<cmd>Gitsigns prev_hunk<CR>", desc = "Prev Hunk" },
-    { "<leader>gl", "<cmd>GlLog<CR>", desc = "Load all previous revisions into quicklist" },
+    {
+        "<leader>gl",
+        "<cmd>GlLog<CR>",
+        desc = "Load all previous revisions into quicklist",
+    },
     { "<leader>gp", "<cmd>Git push<CR>", desc = "Push" },
     { "<leader>gs", "<cmd>Git<CR>", desc = "Open Fugitive" },
     { "<leader>t", "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal" },
     { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "UndotreeToggle" },
+    {
+        "<leader>R",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<CR>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+    },
+    { "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics (Trouble)" },
+    {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+        desc = "Buffer Diagnostics (Trouble)",
+    },
+    {
+        "<leader>xd",
+        "<cmd>Trouble diagnostics toggle<CR>",
+        desc = "Trouble Toggle Document Diagnostics",
+    },
+    { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Trouble Toggle Quickfix" },
+    { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Trouble Toggle Loclist" },
 }
