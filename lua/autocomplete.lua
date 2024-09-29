@@ -1,7 +1,8 @@
 -- Add additional capabilities supported by nvim-cmp
 -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 local lspconfig = require "lspconfig"
+local navic = require "nvim-navic"
+navic.setup()
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -41,8 +42,13 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
+local on_attach = function(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-lspconfig.pyright.setup { flags = lsp_flags }
+lspconfig.pyright.setup { flags = lsp_flags, on_attach = on_attach }
 -- lspconfig.pyright.setup {
 --     flags = lsp_flags,
 --     settings = {
