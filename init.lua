@@ -1,9 +1,9 @@
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require "config.lazy"
 require "keybindings"
+require "diagnostics"
 require "options"
 
 -- prevent netrw from loading because I will use nvim-tree
@@ -71,13 +71,31 @@ require("lualine").setup {
         },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_z = {
+            "location",
+            function()
+                return "  " .. os.date "%R"
+            end,
+        },
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
         lualine_c = { "filename" },
-        lualine_x = { "location" },
+        lualine_x = {
+            "location",
+            {
+                function()
+                    return "  " .. require("dap").status()
+                end,
+                cond = function()
+                    return require("dap").status() ~= ""
+                end,
+                color = function()
+                    return { fg = "#FFB86C" }
+                end,
+            },
+        },
         lualine_y = {},
         lualine_z = {},
     },
