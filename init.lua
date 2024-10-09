@@ -185,4 +185,6 @@ end
 --     end,
 -- })
 
+vim.notify = require "notify"
+
 require("live_prices").setup()
