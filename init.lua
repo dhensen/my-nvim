@@ -184,4 +184,5 @@ end
 --         }
 --     end,
 -- })
---
+
+require("live_prices").setup()

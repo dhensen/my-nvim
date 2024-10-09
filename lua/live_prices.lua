@@ -2,6 +2,16 @@ local api = vim.api
 local prices_win = nil
 local buf = nil
 local progress_buf = nil
+local border = {
+    { "┌", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "┐", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "┘", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "└", "FloatBorder" },
+    { "│", "FloatBorder" },
+}
 
 local function create_window()
     if prices_win and api.nvim_win_is_valid(prices_win) then
@@ -20,6 +30,7 @@ local function create_window()
         height = height,
         row = 2,
         col = vim.o.columns - width - 2,
+        border = border,
     }
 
     prices_win = api.nvim_open_win(buf, true, opts)
@@ -41,8 +52,9 @@ local function create_window()
         relative = "editor",
         width = width,
         height = 1,
-        row = height + 2,
+        row = height + 3,
         col = vim.o.columns - width - 2,
+        border = border,
     })
 end
 
@@ -64,7 +76,7 @@ local function update_window_position()
                 relative = "editor",
                 width = width,
                 height = 1,
-                row = height + 2,
+                row = height + 3,
                 col = vim.o.columns - width - 2,
             }
             api.nvim_win_set_config(progress_buf, progress_opts)
