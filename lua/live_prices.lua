@@ -1,29 +1,7 @@
 local api = vim.api
 local prices_win = nil
 local buf = nil
-local progress_buf = nil
-local progress_win = nil
 local should_update = true
-local border_top_window = {
-    { "┌", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "┐", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "┤", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "├", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
-local border_bottom_window = {
-    { "┌", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "┐", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "┘", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "└", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
 
 local function create_window()
     if prices_win and api.nvim_win_is_valid(prices_win) then
@@ -34,7 +12,7 @@ local function create_window()
     api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 
     local width = 40
-    local height = 6
+    local height = 7
     local opts = {
         style = "minimal",
         relative = "editor",
@@ -43,38 +21,27 @@ local function create_window()
         row = 2,
         col = vim.o.columns - width - 2,
         border = "rounded",
-        title = "Crypto Prices",
     }
 
     prices_win = api.nvim_open_win(buf, false, opts)
 
-    progress_buf = api.nvim_create_buf(false, true)
-    api.nvim_buf_set_option(progress_buf, "bufhidden", "wipe")
-    api.nvim_buf_set_option(progress_buf, "modifiable", true)
-    api.nvim_buf_set_lines(
-        progress_buf,
-        0,
-        -1,
-        false,
-        { "[============================================================]" }
-    )
-    api.nvim_buf_set_option(progress_buf, "modifiable", false)
-
-    progress_win = api.nvim_open_win(progress_buf, false, {
-        style = "minimal",
-        relative = "editor",
-        width = width,
-        height = 1,
-        row = height + 3,
-        col = vim.o.columns - width - 2,
-        border = border_bottom_window,
+    api.nvim_buf_set_option(buf, "modifiable", true)
+    api.nvim_buf_set_lines(buf, 0, height, false, {
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "[============================================================]",
     })
+    api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
 local function update_window_position()
     if prices_win and api.nvim_win_is_valid(prices_win) then
         local width = 40
-        local height = 6
+        local height = 7
         local opts = {
             relative = "editor",
             row = 2,
@@ -83,17 +50,6 @@ local function update_window_position()
             height = height,
         }
         api.nvim_win_set_config(prices_win, opts)
-
-        if progress_win and api.nvim_win_is_valid(progress_win) then
-            local progress_opts = {
-                relative = "editor",
-                width = width,
-                height = 1,
-                row = height + 3,
-                col = vim.o.columns - width - 2,
-            }
-            api.nvim_win_set_config(progress_win, progress_opts)
-        end
     end
 end
 
@@ -126,7 +82,7 @@ local function fetch_prices()
     end
 
     api.nvim_buf_set_option(buf, "modifiable", true)
-    api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    api.nvim_buf_set_lines(buf, 0, #lines, false, lines)
     api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
@@ -146,13 +102,13 @@ local function show_prices()
         end
 
         if progress > 0 then
-            api.nvim_buf_set_option(progress_buf, "modifiable", true)
+            api.nvim_buf_set_option(buf, "modifiable", true)
             local progress_width = 40
             local scaled_progress = math.floor((progress / 60) * (progress_width - 2))
             local progress_bar = string.rep("=", scaled_progress)
                 .. string.rep(" ", (progress_width - 2) - scaled_progress)
-            api.nvim_buf_set_lines(progress_buf, 0, -1, false, { string.format("[%s]", progress_bar) })
-            api.nvim_buf_set_option(progress_buf, "modifiable", false)
+            api.nvim_buf_set_lines(buf, 6, 7, false, { string.format("[%s]", progress_bar) })
+            api.nvim_buf_set_option(buf, "modifiable", false)
             progress = progress - 1
             vim.defer_fn(update_progress, 1000)
         else
@@ -172,10 +128,6 @@ local function hide_prices()
     if prices_win and api.nvim_win_is_valid(prices_win) then
         api.nvim_win_close(prices_win, true)
         prices_win = nil
-    end
-    if progress_win and api.nvim_win_is_valid(progress_win) then
-        api.nvim_win_close(progress_win, true)
-        progress_win = nil
     end
 end
 
