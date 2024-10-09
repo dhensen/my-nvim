@@ -2,7 +2,18 @@ local api = vim.api
 local prices_win = nil
 local buf = nil
 local progress_buf = nil
-local border = {
+local progress_win = nil
+local border_top_window = {
+    { "┌", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "┐", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "┤", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "├", "FloatBorder" },
+    { "│", "FloatBorder" },
+}
+local border_bottom_window = {
     { "┌", "FloatBorder" },
     { "─", "FloatBorder" },
     { "┐", "FloatBorder" },
@@ -30,10 +41,10 @@ local function create_window()
         height = height,
         row = 2,
         col = vim.o.columns - width - 2,
-        border = border,
+        border = border_top_window,
     }
 
-    prices_win = api.nvim_open_win(buf, true, opts)
+    prices_win = api.nvim_open_win(buf, false, opts)
 
     progress_buf = api.nvim_create_buf(false, true)
     api.nvim_buf_set_option(progress_buf, "bufhidden", "wipe")
@@ -47,14 +58,14 @@ local function create_window()
     )
     api.nvim_buf_set_option(progress_buf, "modifiable", false)
 
-    api.nvim_open_win(progress_buf, false, {
+    progress_win = api.nvim_open_win(progress_buf, false, {
         style = "minimal",
         relative = "editor",
         width = width,
         height = 1,
         row = height + 3,
         col = vim.o.columns - width - 2,
-        border = border,
+        border = border_bottom_window,
     })
 end
 
@@ -71,7 +82,7 @@ local function update_window_position()
         }
         api.nvim_win_set_config(prices_win, opts)
 
-        if progress_buf and api.nvim_win_is_valid(progress_buf) then
+        if progress_win and api.nvim_win_is_valid(progress_win) then
             local progress_opts = {
                 relative = "editor",
                 width = width,
@@ -79,7 +90,7 @@ local function update_window_position()
                 row = height + 3,
                 col = vim.o.columns - width - 2,
             }
-            api.nvim_win_set_config(progress_buf, progress_opts)
+            api.nvim_win_set_config(progress_win, progress_opts)
         end
     end
 end
