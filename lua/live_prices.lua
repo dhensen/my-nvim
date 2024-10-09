@@ -4,6 +4,7 @@ local buf = nil
 local should_update = true
 local selected_coins = { "bitcoin", "ethereum", "avalanche-2", "shiba-inu", "solana" }
 local data_file = vim.fn.stdpath "data" .. "/live_prices_config.json"
+local alert_prices = {} -- Table to store alert prices
 
 local function load_config()
     local file = io.open(data_file, "r")
@@ -12,7 +13,8 @@ local function load_config()
         file:close()
         local success, loaded_config = pcall(vim.json.decode, content)
         if success and loaded_config then
-            selected_coins = loaded_config
+            selected_coins = loaded_config.selected_coins or selected_coins
+            alert_prices = loaded_config.alert_prices or alert_prices
         end
     end
 end
@@ -20,7 +22,7 @@ end
 local function save_config()
     local file = io.open(data_file, "w")
     if file then
-        file:write(vim.json.encode(selected_coins))
+        file:write(vim.json.encode { selected_coins = selected_coins, alert_prices = alert_prices })
         file:close()
     end
 end
@@ -80,6 +82,43 @@ local function format_price(price)
     end
 end
 
+local function check_alerts(coin, price)
+    if alert_prices[coin] then
+        local alert = alert_prices[coin]
+        if alert.upper and price >= alert.upper then
+            local difference = price - alert.upper
+            local percentage = (difference / alert.upper) * 100
+            vim.notify(
+                "Upper price alert for "
+                    .. coin
+                    .. "! Current price: "
+                    .. format_price(price)
+                    .. ", exceeded threshold by "
+                    .. format_price(difference)
+                    .. " ("
+                    .. string.format("%.2f%%", percentage)
+                    .. ")",
+                vim.log.levels.WARN
+            )
+        elseif alert.lower and price <= alert.lower then
+            local difference = alert.lower - price
+            local percentage = (difference / alert.lower) * 100
+            vim.notify(
+                "Lower price alert for "
+                    .. coin
+                    .. "! Current price: "
+                    .. format_price(price)
+                    .. ", dropped below threshold by "
+                    .. format_price(difference)
+                    .. " ("
+                    .. string.format("%.2f%%", percentage)
+                    .. ")",
+                vim.log.levels.WARN
+            )
+        end
+    end
+end
+
 local function fetch_prices()
     local coin_ids = table.concat(selected_coins, ",")
     local handle =
@@ -101,6 +140,9 @@ local function fetch_prices()
         local name = coin:gsub("%-%d*$", ""):gsub("%-", " "):gsub("%l", string.upper, 1)
         local price = crypto_prices[coin] and crypto_prices[coin].eur or nil
         table.insert(lines, string.format("%-15s: %s", name, format_price(price)))
+        if price then
+            check_alerts(coin, price)
+        end
     end
 
     api.nvim_buf_set_option(buf, "modifiable", true)
@@ -244,11 +286,41 @@ local function select_coins()
     }
 end
 
+local function set_price_alert(args)
+    local coin, alert_type, price = unpack(vim.split(args, " "))
+    price = tonumber(price)
+    if not coin or not alert_type or not price then
+        vim.notify(
+            "Invalid arguments for SetPriceAlert. Usage: :SetPriceAlert <coin> <upper|lower> <price>",
+            vim.log.levels.ERROR
+        )
+        return
+    end
+
+    if not alert_prices[coin] then
+        alert_prices[coin] = {}
+    end
+
+    if alert_type == "upper" then
+        alert_prices[coin].upper = price
+    elseif alert_type == "lower" then
+        alert_prices[coin].lower = price
+    else
+        vim.notify("Invalid alert type. Use 'upper' or 'lower'", vim.log.levels.ERROR)
+        return
+    end
+
+    save_config()
+    vim.notify("Price alert set for " .. coin .. " at " .. alert_type .. " price of " .. price, vim.log.levels.INFO)
+end
+
 local function setup()
     load_config()
     vim.cmd 'command! ShowPrices lua require("live_prices").show_prices()'
     vim.cmd 'command! ToggleShowPrices lua require("live_prices").toggle_show_prices()'
     vim.cmd 'command! SelectCoins lua require("live_prices").select_coins()'
+    vim.cmd 'command! -nargs=+ TestPriceAlert lua require("live_prices").test_price_alerts(<q-args>)'
+    vim.cmd 'command! -nargs=+ SetPriceAlert lua require("live_prices").set_price_alert(<q-args>)'
     api.nvim_create_autocmd({ "VimResized", "WinNew", "WinClosed" }, {
         callback = function()
             update_window_position()
@@ -256,14 +328,26 @@ local function setup()
     })
 end
 
+local function test_price_alerts(args)
+    local coin, test_price = unpack(vim.split(args, " "))
+    test_price = tonumber(test_price)
+    if coin and test_price then
+        check_alerts(coin, test_price)
+    else
+        vim.notify("Invalid arguments for TestPriceAlert. Usage: :TestPriceAlert <coin> <price>", vim.log.levels.ERROR)
+    end
+end
+
 return {
     show_prices = show_prices,
     hide_prices = hide_prices,
     toggle_show_prices = toggle_show_prices,
     select_coins = select_coins,
+    set_price_alert = set_price_alert,
+    test_price_alerts = test_price_alerts,
     setup = setup,
 }
 
 -- In your init.lua or init.vim, add:
 -- require('live_prices').setup()
--- Then, use :ShowPrices to open the window with live prices, :ToggleShowPrices to toggle it, or :SelectCoins to select which coins to display.
+-- Then, use :ShowPrices to open the window with live prices, :ToggleShowPrices to toggle it, :SelectCoins to select which coins to display, or :SetPriceAlert <coin> <upper|lower> <price> to set a price alert.
