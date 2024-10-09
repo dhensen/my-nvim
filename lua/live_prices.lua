@@ -3,6 +3,7 @@ local prices_win = nil
 local buf = nil
 local progress_buf = nil
 local progress_win = nil
+local should_update = true
 local border_top_window = {
     { "┌", "FloatBorder" },
     { "─", "FloatBorder" },
@@ -41,7 +42,8 @@ local function create_window()
         height = height,
         row = 2,
         col = vim.o.columns - width - 2,
-        border = border_top_window,
+        border = "rounded",
+        title = "Crypto Prices",
     }
 
     prices_win = api.nvim_open_win(buf, false, opts)
@@ -129,11 +131,20 @@ local function fetch_prices()
 end
 
 local function show_prices()
+    if prices_win and api.nvim_win_is_valid(prices_win) then
+        return
+    end
+
+    should_update = true
     create_window()
     fetch_prices()
 
     local progress = 60
     local function update_progress()
+        if not should_update then
+            return
+        end
+
         if progress > 0 then
             api.nvim_buf_set_option(progress_buf, "modifiable", true)
             local progress_width = 40
@@ -148,7 +159,7 @@ local function show_prices()
             if prices_win and api.nvim_win_is_valid(prices_win) then
                 fetch_prices()
                 progress = 60
-                show_prices()
+                update_progress()
             end
         end
     end
@@ -156,8 +167,29 @@ local function show_prices()
     update_progress()
 end
 
+local function hide_prices()
+    should_update = false
+    if prices_win and api.nvim_win_is_valid(prices_win) then
+        api.nvim_win_close(prices_win, true)
+        prices_win = nil
+    end
+    if progress_win and api.nvim_win_is_valid(progress_win) then
+        api.nvim_win_close(progress_win, true)
+        progress_win = nil
+    end
+end
+
+local function toggle_show_prices()
+    if prices_win and api.nvim_win_is_valid(prices_win) then
+        hide_prices()
+    else
+        show_prices()
+    end
+end
+
 local function setup()
     vim.cmd 'command! ShowPrices lua require("live_prices").show_prices()'
+    vim.cmd 'command! ToggleShowPrices lua require("live_prices").toggle_show_prices()'
     api.nvim_create_autocmd({ "VimResized", "WinNew", "WinClosed" }, {
         callback = function()
             update_window_position()
@@ -167,9 +199,11 @@ end
 
 return {
     show_prices = show_prices,
+    hide_prices = hide_prices,
+    toggle_show_prices = toggle_show_prices,
     setup = setup,
 }
 
 -- In your init.lua or init.vim, add:
 -- require('live_prices').setup()
--- Then, use :ShowPrices to open the window with live prices.
+-- Then, use :ShowPrices to open the window with live prices, or :ToggleShowPrices to toggle it.
