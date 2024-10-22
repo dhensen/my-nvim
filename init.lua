@@ -13,101 +13,17 @@ vim.g.loaded_netrwPlugin = 1
 require("telescope").load_extension "fzf"
 require("nvim-tree").setup()
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "NvimTree*",
-    callback = function()
-        local api = require "nvim-tree.api"
-        local view = require "nvim-tree.view"
-
-        if not view.is_visible() then
-            api.tree.open()
-        end
-    end,
-})
-
--- took from: https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lua
-local conditions = {
-    buffer_not_empty = function()
-        return vim.fn.empty(vim.fn.expand "%:t") ~= 1
-    end,
-}
-
-require("lualine").setup {
-    options = {
-        icons_enabled = true,
-        -- theme = "palenight",
-        -- theme = "auto",
-        component_separators = { left = "", right = "" },
-        section_separators = { left = "", right = "" },
-        disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-        },
-        ignore_focus = {},
-        always_divide_middle = true,
-        -- globalstatus = false,
-        globalstatus = true,
-        refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-        },
-    },
-    sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = {
-            {
-                "filesize",
-                cond = conditions.buffer_not_empty,
-                draw_empty = true,
-            },
-            "filename",
-            {
-                "navic",
-                color_correction = nil,
-                navic_opts = nil,
-            },
-        },
-        lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_y = { "progress" },
-        lualine_z = {
-            "location",
-            function()
-                return "  " .. os.date "%R"
-            end,
-        },
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = {
-            "location",
-            {
-                function()
-                    return "  " .. require("dap").status()
-                end,
-                cond = function()
-                    return require("dap").status() ~= ""
-                end,
-                color = function()
-                    return { fg = "#FFB86C" }
-                end,
-            },
-        },
-        lualine_y = {},
-        lualine_z = {},
-    },
-    tabline = {},
-    winbar = {
-        lualine_c = {
-            { "navic", color_correction = nil, navic_opts = nil },
-        },
-    },
-    inactive_winbar = {},
-    extensions = {},
-}
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--     pattern = "NvimTree*",
+--     callback = function()
+--         local api = require "nvim-tree.api"
+--         local view = require "nvim-tree.view"
+--
+--         if not view.is_visible() then
+--             api.tree.open()
+--         end
+--     end,
+-- })
 
 require "autocomplete"
 require "nullls"
@@ -138,6 +54,7 @@ require("mason").setup {
             package_uninstalled = "✗",
         },
     },
+    PATH = "append",
 }
 require("mason-lspconfig").setup { automatic_installation = true }
 require("mason-nvim-dap").setup {
@@ -184,4 +101,12 @@ end
 --         }
 --     end,
 -- })
---
+
+vim.notify = require "notify"
+
+if pcall(require, "live_prices") then
+    require("live_prices").setup()
+end
+if pcall(require, "pomodoro") then
+    require("pomodoro").setup()
+end
