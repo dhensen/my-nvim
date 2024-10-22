@@ -54,6 +54,7 @@ require("mason").setup {
             package_uninstalled = "✗",
         },
     },
+    PATH = "append",
 }
 require("mason-lspconfig").setup { automatic_installation = true }
 require("mason-nvim-dap").setup {
