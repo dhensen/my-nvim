@@ -104,4 +104,9 @@ end
 
 vim.notify = require "notify"
 
-require("live_prices").setup()
+if pcall(require, "live_prices") then
+    require("live_prices").setup()
+end
+if pcall(require, "pomodoro") then
+    require("pomodoro").setup()
+end
