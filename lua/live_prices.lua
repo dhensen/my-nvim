@@ -1,3 +1,5 @@
+local plugin_title = "Live Crypto Prices"
+local render_style = "simple"
 local api = vim.api
 local prices_win = nil
 local buf = nil
@@ -93,12 +95,19 @@ local function check_alerts(coin, price)
                     .. coin
                     .. "! Current price: "
                     .. format_price(price)
+                    .. ", alert price: "
+                    .. format_price(alert.upper)
                     .. ", exceeded threshold by "
                     .. format_price(difference)
                     .. " ("
                     .. string.format("%.2f%%", percentage)
                     .. ")",
-                vim.log.levels.WARN
+                vim.log.levels.WARN,
+                {
+                    title = plugin_title,
+                    render = render_style,
+                    timeout = 8000,
+                }
             )
         elseif alert.lower and price <= alert.lower then
             local difference = alert.lower - price
@@ -108,12 +117,19 @@ local function check_alerts(coin, price)
                     .. coin
                     .. "! Current price: "
                     .. format_price(price)
+                    .. ", alert price: "
+                    .. format_price(alert.lower)
                     .. ", dropped below threshold by "
                     .. format_price(difference)
                     .. " ("
                     .. string.format("%.2f%%", percentage)
                     .. ")",
-                vim.log.levels.WARN
+                vim.log.levels.WARN,
+                {
+                    title = plugin_title,
+                    render = render_style,
+                    timeout = 8000,
+                }
             )
         end
     end
@@ -292,7 +308,11 @@ local function set_price_alert(args)
     if not coin or not alert_type or not price then
         vim.notify(
             "Invalid arguments for SetPriceAlert. Usage: :SetPriceAlert <coin> <upper|lower> <price>",
-            vim.log.levels.ERROR
+            vim.log.levels.ERROR,
+            {
+                title = plugin_title,
+                render = render_style,
+            }
         )
         return
     end
@@ -306,12 +326,19 @@ local function set_price_alert(args)
     elseif alert_type == "lower" then
         alert_prices[coin].lower = price
     else
-        vim.notify("Invalid alert type. Use 'upper' or 'lower'", vim.log.levels.ERROR)
+        vim.notify(
+            "Invalid alert type. Use 'upper' or 'lower'",
+            vim.log.levels.ERROR,
+            { title = plugin_title, render = render_style }
+        )
         return
     end
 
     save_config()
-    vim.notify("Price alert set for " .. coin .. " at " .. alert_type .. " price of " .. price, vim.log.levels.INFO)
+    vim.notify("Price alert set for " .. coin .. " at " .. alert_type .. " price of " .. price, vim.log.levels.INFO, {
+        title = plugin_title,
+        render = render_style,
+    })
 end
 
 local function setup()
@@ -334,7 +361,14 @@ local function test_price_alerts(args)
     if coin and test_price then
         check_alerts(coin, test_price)
     else
-        vim.notify("Invalid arguments for TestPriceAlert. Usage: :TestPriceAlert <coin> <price>", vim.log.levels.ERROR)
+        vim.notify(
+            "Invalid arguments for TestPriceAlert. Usage: :TestPriceAlert <coin> <price>",
+            vim.log.levels.ERROR,
+            {
+                title = plugin_title,
+                render = render_style,
+            }
+        )
     end
 end
 
