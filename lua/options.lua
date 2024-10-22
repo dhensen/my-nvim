@@ -35,5 +35,28 @@ opt.colorcolumn = "100"
 opt.ignorecase = true
 opt.smartcase = true
 
-opt.winbar = "%=%m %f"
+-- opt.winbar = "%=%m %f"
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    callback = function()
+        local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+        local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+
+        -- Example: Ignore winbar for terminal, help, and NvimTree buffers
+        if buftype == "terminal" or filetype == "help" or filetype == "NvimTree" then
+            vim.opt_local.winbar = nil
+        else
+            -- Set your desired winbar value here for other buffers
+            vim.opt_local.winbar = "%=%m %f"
+        end
+    end,
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
+    callback = function()
+        if vim.bo.filetype == "toggleterm" then
+            vim.opt_local.winbar = nil
+        end
+    end,
+})
+
 opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,localoptions"
