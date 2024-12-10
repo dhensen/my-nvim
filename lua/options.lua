@@ -36,6 +36,8 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- opt.winbar = "%=%m %f"
+-- opt.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
+
 vim.api.nvim_create_autocmd("BufWinEnter", {
     callback = function()
         local buftype = vim.api.nvim_buf_get_option(0, "buftype")
@@ -46,7 +48,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
             vim.opt_local.winbar = nil
         else
             -- Set your desired winbar value here for other buffers
-            vim.opt_local.winbar = "%=%m %f"
+            -- vim.opt_local.winbar = "%=%m %f"
+            vim.opt_local.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
         end
     end,
 })
