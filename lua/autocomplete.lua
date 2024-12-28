@@ -15,25 +15,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local bufopts = { buffer = ev.buf }
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set("n", "<space>ws", vim.lsp.buf.workspace_symbol, bufopts)
-        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+        local function with_desc(desc)
+            return vim.tbl_extend("force", bufopts, { desc = desc })
+        end
+
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, with_desc "Go to declaration")
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, with_desc "Go to definition")
+        vim.keymap.set("n", "gw", function()
+            vim.cmd "vsplit"
+            vim.lsp.buf.definition()
+        end, with_desc "Go to definition in a new window")
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, with_desc "Go to implementation")
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, with_desc "Show hover information")
+        vim.keymap.set("n", "<space>k", vim.lsp.buf.signature_help, with_desc "Show signature help")
+        vim.keymap.set("n", "<space>ws", vim.lsp.buf.workspace_symbol, with_desc "Search workspace symbols")
+        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, with_desc "Add workspace folder")
+        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, with_desc "Remove workspace folder")
         vim.keymap.set("n", "<space>wl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, bufopts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-        vim.keymap.set("n", "<space>rr", vim.lsp.buf.references, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+        end, with_desc "List workspace folders")
+        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, with_desc "Go to type definition")
+        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, with_desc "Code action")
+        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, with_desc "Rename")
+        vim.keymap.set("n", "<space>rr", vim.lsp.buf.references, with_desc "References")
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, with_desc "References")
         vim.keymap.set("n", "<space>f", function()
             vim.lsp.buf.format { async = true }
-        end, bufopts)
+        end, with_desc "Format")
     end,
 })
 
