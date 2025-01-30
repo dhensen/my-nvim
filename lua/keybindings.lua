@@ -137,4 +137,5 @@ wk.add {
     },
     { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Trouble Toggle Quickfix" },
     { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Trouble Toggle Loclist" },
+    { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle ZenMode" },
 }

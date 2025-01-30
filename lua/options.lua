@@ -12,6 +12,7 @@ opt.hidden = true -- keep buffers around but hidden
 opt.splitright = true
 opt.number = true
 opt.relativenumber = true
+
 opt.guicursor = ""
 
 opt.swapfile = false
@@ -28,7 +29,7 @@ opt.scrolloff = 8
 opt.signcolumn = "auto"
 
 opt.updatetime = 50
-opt.colorcolumn = "100"
+-- opt.colorcolumn = "100"
 
 -- ignorecase by default, then add smartcase
 -- as soon as you start adding capital case chars, it will switch so case sensitive
@@ -36,7 +37,7 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- opt.winbar = "%=%m %f"
--- opt.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
+-- opt.winbar = "%=%m %{%v:lua.vim.fn.expand('%F')%} %{%v:lua.require'nvim-navic'.get_location()%}"
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
     callback = function()
@@ -49,7 +50,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         else
             -- Set your desired winbar value here for other buffers
             -- vim.opt_local.winbar = "%=%m %f"
-            vim.opt_local.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
+            vim.opt_local.winbar = "%=%m %{%v:lua.vim.fn.expand('%F')%} %{%v:lua.require'nvim-navic'.get_location()%}"
         end
     end,
 })

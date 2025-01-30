@@ -2,7 +2,7 @@ local neotest = require "neotest"
 neotest.setup {
     adapters = {
         require "neotest-python" {
-            args = { "-svv" },
+            args = { "-svvv" }, -- yes, you really need 3 v's to get full diffs
             dap = { justMyCode = false },
             runner = "pytest",
         },
