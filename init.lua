@@ -107,6 +107,9 @@ vim.notify = require "notify"
 if pcall(require, "live_prices") then
     require("live_prices").setup()
 end
+
+-- require("pomodoro").setup { duration = 10 * 60 }
+
 if pcall(require, "pomodoro") then
     require("pomodoro").setup()
 end

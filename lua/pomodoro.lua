@@ -3,16 +3,23 @@ local api = vim.api
 local timer = vim.loop.new_timer()
 local os = require "os"
 
-local pomodoro_time = 25 * 60 -- 25 minutes in seconds
-local countdown = pomodoro_time
+local countdown = 0
+local is_running = false
 
 local M = {}
 
+M.config = {
+    duration = 25 * 60,
+    start_cmd = "",
+    stop_cmd = "",
+}
+
 function M.set_dnd(enable)
-    if enable then
-        os.execute 'shortcuts run "Start Work Focus"'
-    else
-        os.execute 'shortcuts run "Stop Work Focus"'
+    local cmd = enable and M.config.start_cmd or M.config.stop_cmd
+    if type(cmd) == "function" then
+        cmd()
+    elseif type(cmd) == "string" and cmd ~= "" then
+        os.execute(cmd)
     end
 end
 
@@ -25,16 +32,25 @@ local function update_statusline()
 end
 
 function M.start_pomodoro()
-    countdown = pomodoro_time
+    if is_running then
+        vim.notify("Pomodoro already running!", vim.log.levels.WARN)
+        return
+    end
+    countdown = M.config.duration
+    is_running = true
     M.set_dnd(true)
     timer:start(
         0,
         1000,
         vim.schedule_wrap(function()
+            if not is_running then
+                return
+            end
             if countdown > 0 then
                 countdown = countdown - 1
                 update_statusline()
             else
+                is_running = false
                 timer:stop()
                 M.set_dnd(false)
                 vim.notify "Pomodoro finished!"
@@ -44,6 +60,11 @@ function M.start_pomodoro()
 end
 
 function M.stop_pomodoro()
+    if not is_running then
+        vim.notify("No active pomodoro.", vim.log.levels.WARN)
+        return
+    end
+    is_running = false
     timer:stop()
     M.set_dnd(false)
     vim.g.pomodoro_timer = nil
@@ -55,25 +76,34 @@ function M.get_statusline()
     return vim.g.pomodoro_timer or ""
 end
 
--- Command to start Pomodoro
-vim.api.nvim_create_user_command("StartPomodoro", function()
-    M.start_pomodoro()
-end, {})
+local function pomodoro_complete(arglead, cmdline, cursorpos)
+    local subcommands = { "start", "stop" }
+    local matches = {}
+    for _, sub in ipairs(subcommands) do
+        if sub:find("^" .. arglead) then
+            table.insert(matches, sub)
+        end
+    end
+    return matches
+end
 
--- Command to stop Pomodoro
-vim.api.nvim_create_user_command("StopPomodoro", function()
-    M.stop_pomodoro()
-end, {})
+vim.api.nvim_create_user_command("Pomodoro", function(opts)
+    if opts.args == "start" then
+        M.start_pomodoro()
+    elseif opts.args == "stop" then
+        M.stop_pomodoro()
+    else
+        print "Usage: Pomodoro start|stop"
+    end
+end, { nargs = 1, complete = pomodoro_complete })
 
-function M.setup()
+function M.setup(user_config)
+    M.config = vim.tbl_extend("force", M.config, user_config or {})
     vim.g.pomodoro_timer = nil
 
-    -- Statusline integration for lualine
     if pcall(require, "lualine") then
         require("lualine").setup {
-            sections = {
-                lualine_c = { M.get_statusline },
-            },
+            sections = { lualine_c = { M.get_statusline } },
         }
     end
 end
