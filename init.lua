@@ -110,9 +110,20 @@ end
 
 -- require("pomodoro").setup { duration = 10 * 60 }
 
-if pcall(require, "pomodoro") then
-    require("pomodoro").setup()
-end
+require("pomodoro").setup {
+    start_cmd = function()
+        vim.cmd "ZenMode"
+        os.execute 'shortcuts run "Start Work Focus"'
+    end,
+    stop_cmd = function()
+        vim.cmd "ZenMode"
+        os.execute 'shortcuts run "Stop Work Focus"'
+    end,
+}
+
+-- if pcall(require, "pomodoro") then
+--     require("pomodoro").setup()
+-- end
 
 -- it's all about the venv where debugpy resides, I need to figure out how much the python version that Mason chose to install debugpy is compatible with the python version that I have in my venv
 require("dap-python").setup "/Users/dino/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
