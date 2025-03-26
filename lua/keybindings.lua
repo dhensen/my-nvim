@@ -1,13 +1,12 @@
-local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local wk = require "which-key"
 require("trouble").setup {}
 
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("", "<Space>", "<Nop>", default_opts)
 
 -- Mappings.
-keymap("n", "<leader>n", ":NvimTreeToggle<CR>", default_opts)
-keymap("n", "<leader>j", ":NvimTreeFindFile<CR>", default_opts)
+vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>", default_opts)
+vim.keymap.set("n", "<leader>j", ":NvimTreeFindFile<CR>", default_opts)
 
 -- keymap("n", "<C-H>", "<C-w><C-H>", default_opts)
 -- keymap("n", "<C-J>", "<C-w><C-J>", default_opts)
@@ -36,27 +35,27 @@ vim.keymap.set("v", "<leader>d", '"_d')
 -- this prevents from going into Ex mode
 vim.keymap.set("n", "Q", "<nop>")
 
-keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
+vim.keymap.set("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
 
 -- Resizing panes
-keymap("n", "<Left>", ":vertical resize +1<CR>", default_opts)
-keymap("n", "<Right>", ":vertical resize -1<CR>", default_opts)
-keymap("n", "<Up>", ":resize -1<CR>", default_opts)
-keymap("n", "<Down>", ":resize +1<CR>", default_opts)
+vim.keymap.set("n", "<Left>", ":vertical resize +1<CR>", default_opts)
+vim.keymap.set("n", "<Right>", ":vertical resize -1<CR>", default_opts)
+vim.keymap.set("n", "<Up>", ":resize -1<CR>", default_opts)
+vim.keymap.set("n", "<Down>", ":resize +1<CR>", default_opts)
 
-keymap("n", "<leader>e", ":RunFile<CR>", default_opts)
+vim.keymap.set("n", "<leader>e", ":RunFile<CR>", default_opts)
 
 -- Better indent: stay in visual mode after changing indent
-keymap("v", "<", "<gv", default_opts)
-keymap("v", ">", ">gv", default_opts)
+vim.keymap.set("v", "<", "<gv", default_opts)
+vim.keymap.set("v", ">", ">gv", default_opts)
 
 -- Better escape using jk in insert and terminal mode
-keymap("i", "jk", "<ESC>", default_opts)
-keymap("t", "jk", "<C-\\><C-n>", default_opts)
+vim.keymap.set("i", "jk", "<ESC>", default_opts)
+vim.keymap.set("t", "jk", "<C-\\><C-n>", default_opts)
 
 -- Move selected line / block of text in visual mode
-keymap("x", "K", ":move '<-2<CR>gv-gv", default_opts)
-keymap("x", "J", ":move '>+1<CR>gv-gv", default_opts)
+vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", default_opts)
+vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
 -- vim.keymap.set("n", "<leader>xx", function()
 --     require("trouble").toggle()
