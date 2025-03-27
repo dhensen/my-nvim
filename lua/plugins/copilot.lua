@@ -4,6 +4,12 @@ return {
     event = "InsertEnter",
     config = function()
         require("copilot").setup {
+            suggestion = {
+                auto_trigger = true,
+                keymap = {
+                    accept = "<C-j>",
+                },
+            },
             filetypes = {
                 markdown = true, -- overrides default
                 sh = function()
@@ -14,6 +20,7 @@ return {
                     return true
                 end,
             },
+            copilot_model = "gpt-4o-copilot",
         }
     end,
 }
