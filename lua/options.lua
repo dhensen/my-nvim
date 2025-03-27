@@ -44,16 +44,17 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         local buftype = vim.api.nvim_buf_get_option(0, "buftype")
         local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
-        -- Example: Ignore winbar for terminal, help, and NvimTree buffers
-        if buftype == "terminal" or filetype == "help" or filetype == "NvimTree" then
-            vim.opt_local.winbar = nil
-        else
+        -- print(buftype, ",", filetype)
+        if buftype == "" then
             -- Set your desired winbar value here for other buffers
             -- vim.opt_local.winbar = "%=%m %f"
             vim.opt_local.winbar = "%=%m %{%v:lua.vim.fn.expand('%F')%} %{%v:lua.require'nvim-navic'.get_location()%}"
+        else
+            vim.opt_local.winbar = nil
         end
     end,
 })
+
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "term://*",
     callback = function()
