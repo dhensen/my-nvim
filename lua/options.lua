@@ -25,6 +25,7 @@ opt.incsearch = true
 
 opt.termguicolors = true
 opt.scrolloff = 8
+opt.scrollback = 100000
 
 opt.signcolumn = "auto"
 
