@@ -1,6 +1,5 @@
 -- Add additional capabilities supported by nvim-cmp
 -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require "lspconfig"
 local navic = require "nvim-navic"
 navic.setup()
 
@@ -56,26 +55,15 @@ local on_attach = function(client, bufnr)
     end
 end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-lspconfig.pyright.setup { flags = lsp_flags, on_attach = on_attach }
--- lspconfig.pyright.setup {
---     flags = lsp_flags,
---     settings = {
---         pyright = {
---             -- Using Ruff's import organizer
---             disableOrganizeImports = true,
---         },
---         python = {
---             analysis = {
---                 -- Ignore all files for analysis to exclusively use Ruff for linting
---                 ignore = { "*" },
---             },
---         },
---     },
--- }
-lspconfig.lua_ls.setup { flags = lsp_flags }
-lspconfig.ts_ls.setup { flags = lsp_flags }
-lspconfig.ruff.setup { flags = lsp_flags }
-lspconfig.terraformls.setup { flags = lsp_flags }
+vim.lsp.enable "pyright"
+vim.lsp.enable "lua_ls"
+vim.lsp.enable "ts_ls"
+vim.lsp.enable "ruff"
+vim.lsp.enable "terraformls"
+-- lspconfig.lua_ls.setup { flags = lsp_flags }
+-- lspconfig.ts_ls.setup { flags = lsp_flags }
+-- lspconfig.ruff.setup { flags = lsp_flags }
+-- lspconfig.terraformls.setup { flags = lsp_flags }
 
 -- luasnip setup
 local luasnip = require "luasnip"

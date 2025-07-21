@@ -13,7 +13,46 @@ vim.g.loaded_netrwPlugin = 1
 require("fzf-lua").register_ui_select()
 
 require("telescope").load_extension "fzf"
-require("nvim-tree").setup()
+-- require("nvim-tree").setup()
+require("nvim-tree").setup {
+    on_attach = function(bufnr)
+        local api = require "nvim-tree.api"
+        -- This line sets up all the default mappings:
+        api.config.mappings.default_on_attach(bufnr)
+
+        -- Your custom mapping:
+        local function open_in_system_file_browser(node)
+            if not node or (node.type ~= "file" and node.type ~= "symlink") then
+                vim.notify("Please select a file node, not a directory or special item.", vim.log.levels.ERROR)
+                return
+            end
+            local path = node.link_to or node.absolute_path
+            if type(path) ~= "string" or path == "" then
+                vim.notify("Could not determine file path!", vim.log.levels.ERROR)
+                return
+            end
+            local open_cmd
+            if vim.fn.has "mac" == 1 then
+                open_cmd = 'open "' .. vim.fn.fnamemodify(path, ":h") .. '"'
+            elseif vim.fn.has "unix" == 1 then
+                open_cmd = 'xdg-open "' .. vim.fn.fnamemodify(path, ":h") .. '"'
+            elseif vim.fn.has "win32" == 1 then
+                open_cmd = 'start "" "' .. vim.fn.fnamemodify(path, ":h") .. '"'
+            else
+                vim.notify("No known way to open file browser on this OS!", vim.log.levels.ERROR)
+                return
+            end
+            vim.fn.system(open_cmd)
+        end
+
+        vim.keymap.set("n", "gF", function()
+            local node = api.tree.get_node_under_cursor()
+            if node then
+                open_in_system_file_browser(node)
+            end
+        end, { buffer = bufnr, desc = "Open parent folder in system file browser" })
+    end,
+}
 
 -- vim.api.nvim_create_autocmd({ "BufEnter" }, {
 --     pattern = "NvimTree*",
