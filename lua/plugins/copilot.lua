@@ -20,7 +20,8 @@ return {
                     return true
                 end,
             },
-            copilot_model = "gpt-4o-copilot",
+            -- copilot_model = "gpt-4o-copilot",
+            copilot_model = "gpt-4o-copilot-2025-04-03",
         }
     end,
 }
