@@ -73,11 +73,12 @@ require "testing"
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
 function ColorMyPencils(color)
-    color = color or "rose-pine"
-    -- color = color or "tokyonight-day"
-    require("rose-pine").setup {
-        dark_variant = "moon",
-    }
+    vim.o.background = "dark"
+    -- color = color or "rose-pine"
+    color = color or "tokyonight-moon"
+    -- require("rose-pine").setup {
+    --     dark_variant = "moon",
+    -- }
     vim.cmd.colorscheme(color)
 
     -- enable these if you want transparent bg:
