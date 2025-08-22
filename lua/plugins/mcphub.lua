@@ -5,6 +5,14 @@ return {
     },
     build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
     config = function()
-        require("mcphub").setup()
+        require("mcphub").setup {
+            auto_approve = true,
+            extensions = {
+                avante = {
+                    enabled = true,
+                    make_slash_commands = true,
+                },
+            },
+        }
     end,
 }
