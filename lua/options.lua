@@ -17,7 +17,7 @@ opt.guicursor = ""
 
 opt.swapfile = false
 opt.backup = false
-opt.undodir = os.getenv "HOME" .. "/.config/nvim/undodir"
+opt.undodir = os.getenv "HOME" .. "/.local/share/nvim/undo"
 opt.undofile = true
 
 opt.hlsearch = true

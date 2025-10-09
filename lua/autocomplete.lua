@@ -36,9 +36,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, with_desc "Go to type definition")
         vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, with_desc "Code action")
         vim.keymap.set("n", "<space>cc", function()
-            vim.cmd "CoverageLoad"
+            vim.cmd "Coverage"
+        end, { desc = "Coverage" })
+        vim.keymap.set("n", "<space>ct", function()
             vim.cmd "CoverageToggle"
-        end, with_desc "Toggle Coverage")
+        end, { desc = "Toggle Coverage" })
         vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, with_desc "Rename")
         vim.keymap.set("n", "<space>rr", vim.lsp.buf.references, with_desc "References")
         vim.keymap.set("n", "gr", vim.lsp.buf.references, with_desc "References")
