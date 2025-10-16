@@ -88,6 +88,16 @@ vim.keymap.set("n", "<C-p>", function()
     builtin.git_files { search_untracked = true }
 end, { desc = "telescope git_files with show untracked" })
 
+vim.keymap.set("n", "<leader>ln", function()
+    if vim.wo.relativenumber then
+        vim.wo.relativenumber = false
+        vim.wo.number = true
+    else
+        vim.wo.relativenumber = true
+        vim.wo.number = true
+    end
+end, { desc = "Toggle relative line numbers" })
+
 wk.add {
     { "<leader>f", group = "Telescope" },
     { "<leader>fb", builtin.buffers, desc = "Buffers" },
