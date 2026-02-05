@@ -8,6 +8,11 @@ navic.setup()
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client.server_capabilities.documentSymbolProvider then
+            navic.attach(client, ev.buf)
+        end
+
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -55,21 +60,12 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
-local on_attach = function(client, bufnr)
-    if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
-end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 vim.lsp.enable "pyright"
 vim.lsp.enable "lua_ls"
 vim.lsp.enable "ts_ls"
 vim.lsp.enable "ruff"
 vim.lsp.enable "terraformls"
--- lspconfig.lua_ls.setup { flags = lsp_flags }
--- lspconfig.ts_ls.setup { flags = lsp_flags }
--- lspconfig.ruff.setup { flags = lsp_flags }
--- lspconfig.terraformls.setup { flags = lsp_flags }
 
 -- luasnip setup
 local luasnip = require "luasnip"
