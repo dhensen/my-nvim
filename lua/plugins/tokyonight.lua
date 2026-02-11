@@ -4,7 +4,7 @@ return {
     priority = 1000,
     opts = {},
     config = function()
-        require("tokyonight").setup { style = "moon" }
+        -- require("tokyonight").setup { style = "day" }
         -- vim.cmd.colorscheme "tokyonight"
     end,
 }
