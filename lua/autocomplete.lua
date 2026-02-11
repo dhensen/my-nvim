@@ -63,7 +63,13 @@ local lsp_flags = {
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 vim.lsp.enable "pyright"
 vim.lsp.enable "lua_ls"
-vim.lsp.enable "ts_ls"
+vim.lsp.enable("ts_ls", {
+    on_attach = function(client)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+})
+
 vim.lsp.enable "ruff"
 vim.lsp.enable "terraformls"
 
