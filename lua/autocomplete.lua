@@ -71,6 +71,17 @@ vim.lsp.enable("ts_ls", {
 })
 
 vim.lsp.enable "ruff"
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.py",
+    callback = function()
+        vim.lsp.buf.format {
+            filter = function(client)
+                return client.name == "ruff"
+            end,
+        }
+    end,
+})
 vim.lsp.enable "terraformls"
 
 -- luasnip setup
