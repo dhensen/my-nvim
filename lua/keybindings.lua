@@ -52,6 +52,11 @@ vim.keymap.set("t", "jk", "<C-\\><C-n>", default_opts)
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", default_opts)
 
+-- grug-far: open with visual selection pre-filled
+vim.keymap.set("v", "<leader>Sv", function()
+    require("grug-far").with_visual_selection()
+end, { desc = "Search visual selection (grug-far)" })
+
 local builtin = require "telescope.builtin"
 
 vim.keymap.set("n", "<C-p>", function()
@@ -117,4 +122,20 @@ wk.add {
     { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Trouble Toggle Quickfix" },
     { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Trouble Toggle Loclist" },
     { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle ZenMode" },
+    { "<leader>S", group = "Search & Replace (grug-far)" },
+    {
+        "<leader>So",
+        function() require("grug-far").open() end,
+        desc = "Open",
+    },
+    {
+        "<leader>Sw",
+        function() require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } } end,
+        desc = "Search word under cursor",
+    },
+    {
+        "<leader>Sf",
+        function() require("grug-far").open { prefills = { paths = vim.fn.expand "%" } } end,
+        desc = "Search in current file",
+    },
 }
