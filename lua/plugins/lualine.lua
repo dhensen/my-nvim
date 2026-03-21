@@ -1,18 +1,9 @@
--- took from: https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lua
-local conditions = {
-    buffer_not_empty = function()
-        return vim.fn.empty(vim.fn.expand "%:t") ~= 1
-    end,
-}
-
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", "mfussenegger/nvim-dap" },
     opts = {
         options = {
             icons_enabled = true,
-            -- theme = "palenight",
-            -- theme = "auto",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = {
@@ -21,7 +12,6 @@ return {
             },
             ignore_focus = {},
             always_divide_middle = true,
-            -- globalstatus = false,
             globalstatus = true,
             refresh = {
                 statusline = 1000,
@@ -39,16 +29,13 @@ return {
                     cond = function()
                         return require("dap").status() ~= ""
                     end,
-                    -- color = function()
-                    --     return { fg = "#FFB86C" }
-                    -- end,
                 },
             },
             lualine_b = { "branch", "diff", "diagnostics" },
             lualine_c = {
                 {
                     "filesize",
-                    cond = conditions.buffer_not_empty,
+                    cond = function() return vim.fn.empty(vim.fn.expand "%:t") ~= 1 end,
                     draw_empty = true,
                 },
                 "filename",

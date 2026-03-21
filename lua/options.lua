@@ -1,5 +1,3 @@
---keybindings
-
 local opt = vim.opt
 
 opt.tabstop = 4
@@ -30,7 +28,6 @@ opt.scrollback = 100000
 opt.signcolumn = "auto"
 
 opt.updatetime = 50
--- opt.colorcolumn = "100"
 
 -- ignorecase by default, then add smartcase
 -- as soon as you start adding capital case chars, it will switch so case sensitive
@@ -40,11 +37,8 @@ opt.smartcase = true
 vim.api.nvim_create_autocmd("BufWinEnter", {
     callback = function()
         local buftype = vim.bo[0].buftype
-        local filetype = vim.bo[0].filetype
 
         if buftype == "" then
-            -- Set your desired winbar value here for other buffers
-            -- vim.opt_local.winbar = "%=%m %f"
             vim.opt_local.winbar = "%=%m %{%v:lua.vim.fn.expand('%F')%} %{%v:lua.require'nvim-navic'.get_location()%}"
         else
             vim.opt_local.winbar = nil

@@ -99,8 +99,6 @@ if in_wsl then
     }
 end
 
-vim.notify = require "notify"
-
 if pcall(require, "live_prices") then
     require("live_prices").setup()
 end

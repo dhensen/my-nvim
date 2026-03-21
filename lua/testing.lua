@@ -13,6 +13,9 @@ vim.api.nvim_create_user_command("NeotestRun", require("neotest").run.run, {})
 vim.api.nvim_create_user_command("NeotestOutput", require("neotest").output.open, {})
 vim.api.nvim_create_user_command("NeotestSummary", require("neotest").summary.toggle, {})
 
+vim.keymap.set("n", "<space>cc", "<cmd>Coverage<CR>", { desc = "Coverage" })
+vim.keymap.set("n", "<space>ct", "<cmd>CoverageToggle<CR>", { desc = "Toggle Coverage" })
+
 vim.keymap.set("n", "<leader>r", function()
     require("neotest").run.run()
 end, { noremap = true, desc = "NeotestRun" })
