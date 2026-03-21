@@ -101,6 +101,8 @@ wk.add {
     },
     { "<leader>gp", "<cmd>Git push<CR>", desc = "Push" },
     { "<leader>gs", "<cmd>Git<CR>", desc = "Open Fugitive" },
+    { "<leader>gg", function() Snacks.lazygit() end, desc = "LazyGit" },
+    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
     { "<leader>t", "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal" },
     { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "UndotreeToggle" },
     {
@@ -122,6 +124,8 @@ wk.add {
     { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Trouble Toggle Quickfix" },
     { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Trouble Toggle Loclist" },
     { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle ZenMode" },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    { "<leader>.", function() Snacks.scratch() end, desc = "Scratch Buffer" },
     { "<leader>S", group = "Search & Replace (grug-far)" },
     {
         "<leader>So",

@@ -107,6 +107,8 @@ After install, run `:Lazy update` to pull the latest plugin versions (including 
 | `<leader>gb` | Blame |
 | `<leader>gl` | Load all revisions into quickfix |
 | `<leader>gj/gk` | Next / previous hunk (gitsigns) |
+| `<leader>gg` | Open LazyGit float (snacks) |
+| `<leader>gB` | Open current file/line in browser — GitHub, GitLab, etc (snacks) |
 
 ### search & replace — grug-far (`<leader>S`)
 
@@ -183,6 +185,8 @@ The DAP UI opens automatically when a session starts and closes when it ends.
 | `<leader>z` | Toggle zen mode |
 | `<leader>e` | Run current file (code_runner) |
 | `<leader>ln` | Toggle relative line numbers |
+| `<leader>bd` | Delete buffer (without closing window) |
+| `<leader>.` | Open scratch buffer |
 | `<leader>dd` | Hatch a duck 🦆 |
 | `<leader>dk` | Cook the duck 🍳 |
 
