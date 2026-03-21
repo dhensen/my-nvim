@@ -8,11 +8,6 @@ vim.keymap.set("", "<Space>", "<Nop>", default_opts)
 vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>", default_opts)
 vim.keymap.set("n", "<leader>j", ":NvimTreeFindFile<CR>", default_opts)
 
--- keymap("n", "<C-H>", "<C-w><C-H>", default_opts)
--- keymap("n", "<C-J>", "<C-w><C-J>", default_opts)
--- keymap("n", "<C-K>", "<C-w><C-K>", default_opts)
--- keymap("n", "<C-L>", "<C-w><C-L>", default_opts)
-
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<space>a", vim.diagnostic.open_float, default_opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, default_opts)
@@ -20,7 +15,7 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, default_opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, default_opts)
 
 vim.keymap.set("x", "<leader>p", '"_d"+P')
-vim.keymap.set("x", "<leader>P", '"_d"+P')
+vim.keymap.set("x", "<leader>P", '"_d"+p')
 
 vim.keymap.set("n", "<leader>cp", '"+p')
 vim.keymap.set("n", "<leader>cP", '"+P')
@@ -56,31 +51,6 @@ vim.keymap.set("t", "jk", "<C-\\><C-n>", default_opts)
 -- Move selected line / block of text in visual mode
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", default_opts)
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", default_opts)
-
--- vim.keymap.set("n", "<leader>xx", function()
---     require("trouble").toggle()
--- end)
--- vim.keymap.set("n", "<leader>xw", function()
---     require("trouble").toggle "workspace_diagnostics"
--- end)
--- vim.keymap.set("n", "<leader>xd", function()
---     require("trouble").toggle "document_diagnostics"
--- end)
--- vim.keymap.set("n", "<leader>xq", function()
---     require("trouble").toggle "quickfix"
--- end)
--- vim.keymap.set("n", "<leader>xl", function()
---     require("trouble").toggle "loclist"
--- end)
--- vim.keymap.set("n", "gR", function()
---     require("trouble").toggle "lsp_references"
--- end)
-
--- vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
---     expr = true,
---     replace_keycodes = false,
--- })
--- vim.g.copilot_no_tab_map = true
 
 local builtin = require "telescope.builtin"
 

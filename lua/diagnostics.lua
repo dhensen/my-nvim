@@ -21,14 +21,5 @@ vim.api.nvim_create_user_command("DiagnosticsToggle", function()
 end, {})
 
 -- thanks to Paulobox: https://github.com/neovim/nvim-lspconfig/issues/662#issuecomment-2105390305
---
--- Keybinding to toggle inline diagnostics (ii)
-vim.api.nvim_set_keymap(
-    "n",
-    "<Leader>ii",
-    ':lua vim.cmd("DiagnosticsToggleVirtualText")<CR>',
-    { noremap = true, silent = true }
-)
-
--- Keybinding to toggle diagnostics (id)
-vim.api.nvim_set_keymap("n", "<Leader>id", ':lua vim.cmd("DiagnosticsToggle")<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>ii", "<cmd>DiagnosticsToggleVirtualText<CR>", { desc = "Toggle diagnostic virtual text" })
+vim.keymap.set("n", "<Leader>id", "<cmd>DiagnosticsToggle<CR>", { desc = "Toggle diagnostics" })

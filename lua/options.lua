@@ -37,15 +37,11 @@ opt.updatetime = 50
 opt.ignorecase = true
 opt.smartcase = true
 
--- opt.winbar = "%=%m %f"
--- opt.winbar = "%=%m %{%v:lua.vim.fn.expand('%F')%} %{%v:lua.require'nvim-navic'.get_location()%}"
-
 vim.api.nvim_create_autocmd("BufWinEnter", {
     callback = function()
-        local buftype = vim.api.nvim_buf_get_option(0, "buftype")
-        local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+        local buftype = vim.bo[0].buftype
+        local filetype = vim.bo[0].filetype
 
-        -- print(buftype, ",", filetype)
         if buftype == "" then
             -- Set your desired winbar value here for other buffers
             -- vim.opt_local.winbar = "%=%m %f"

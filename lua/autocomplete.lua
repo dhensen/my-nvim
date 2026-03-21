@@ -1,5 +1,3 @@
--- Add additional capabilities supported by nvim-cmp
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local navic = require "nvim-navic"
 navic.setup()
 
@@ -14,7 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(ev.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
+        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -54,11 +52,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end, with_desc "Format")
     end,
 })
-
-local lsp_flags = {
-    -- This is the default in Nvim 0.7+
-    debounce_text_changes = 150,
-}
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 vim.lsp.enable "pyright"

@@ -67,15 +67,6 @@ end, {})
 
 function M.setup()
     vim.g.pomodoro_timer = nil
-
-    -- Statusline integration for lualine
-    if pcall(require, "lualine") then
-        require("lualine").setup {
-            sections = {
-                lualine_c = { M.get_statusline },
-            },
-        }
-    end
 end
 
 return M

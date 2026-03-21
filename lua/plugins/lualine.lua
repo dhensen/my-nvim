@@ -62,10 +62,14 @@ return {
             lualine_y = { "progress" },
             lualine_z = {
                 "location",
-                -- I already have time in TMUX top bar
-                -- function()
-                --     return "  " .. os.date "%R"
-                -- end,
+                {
+                    function()
+                        return require("pomodoro").get_statusline()
+                    end,
+                    cond = function()
+                        return vim.g.pomodoro_timer ~= nil
+                    end,
+                },
             },
         },
         inactive_sections = {

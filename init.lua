@@ -13,7 +13,6 @@ vim.g.loaded_netrwPlugin = 1
 require("fzf-lua").register_ui_select()
 
 require("telescope").load_extension "fzf"
--- require("nvim-tree").setup()
 require("nvim-tree").setup {
     on_attach = function(bufnr)
         local api = require "nvim-tree.api"
@@ -54,25 +53,12 @@ require("nvim-tree").setup {
     end,
 }
 
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---     pattern = "NvimTree*",
---     callback = function()
---         local api = require "nvim-tree.api"
---         local view = require "nvim-tree.view"
---
---         if not view.is_visible() then
---             api.tree.open()
---         end
---     end,
--- })
-
 require "autocomplete"
 require "nullls"
 require "testing"
 
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
 
--- vim.o.background = "dark"
 vim.cmd.colorscheme "tokyonight"
 
 require("mason").setup {
@@ -101,7 +87,7 @@ require("large-files").setup {
 -- hide tilde for empty lines
 vim.cmd [[hi NonText guifg=bg]]
 
-in_wsl = os.getenv "WSL_DISTRO_NAME" ~= nil
+local in_wsl = os.getenv "WSL_DISTRO_NAME" ~= nil
 
 if in_wsl then
     local script_path = vim.fn.stdpath "config" .. "/nvim_paste"
@@ -112,24 +98,6 @@ if in_wsl then
         cache_enabled = true,
     }
 end
-
--- Display diagnostics as virtual text only if not in insert mode
--- vim.api.nvim_create_autocmd("InsertEnter", {
---     pattern = "*",
---     callback = function()
---         vim.diagnostic.config {
---             virtual_text = false,
---         }
---     end,
--- })
--- vim.api.nvim_create_autocmd("InsertLeave", {
---     pattern = "*",
---     callback = function()
---         vim.diagnostic.config {
---             virtual_text = true,
---         }
---     end,
--- })
 
 vim.notify = require "notify"
 

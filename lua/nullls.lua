@@ -10,7 +10,6 @@ null_ls.setup {
         null_ls.builtins.formatting.terraform_fmt,
         null_ls.builtins.formatting.djlint,
         null_ls.builtins.formatting.prettier,
-        -- null_ls.builtins.formatting.yapf,
     },
     temp_dir = tmp_dir,
     on_attach = function(client, bufnr)
