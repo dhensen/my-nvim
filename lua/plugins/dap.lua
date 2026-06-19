@@ -5,4 +5,7 @@ return {
         "rcarriga/nvim-dap-ui",
         "mfussenegger/nvim-dap-python",
     },
+    config = function()
+        require "debugging"
+    end,
 }

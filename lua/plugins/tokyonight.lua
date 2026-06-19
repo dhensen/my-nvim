@@ -5,6 +5,6 @@ return {
     opts = {},
     config = function()
         -- require("tokyonight").setup { style = "day" }
-        -- vim.cmd.colorscheme "tokyonight"
+        vim.cmd.colorscheme "tokyonight"
     end,
 }
