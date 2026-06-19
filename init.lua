@@ -7,7 +7,6 @@ require "diagnostics"
 require "options"
 
 require "autocomplete"
-require "nullls"
 require "testing"
 
 vim.g.python3_host_prog = os.getenv "HOME" .. "/.nvim-venv/bin/python3"
