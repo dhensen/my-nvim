@@ -187,8 +187,6 @@ The DAP UI opens automatically when a session starts and closes when it ends.
 | `<leader>ln` | Toggle relative line numbers |
 | `<leader>bd` | Delete buffer (without closing window) |
 | `<leader>.` | Open scratch buffer |
-| `<leader>dd` | Hatch a duck 🦆 |
-| `<leader>dk` | Cook the duck 🍳 |
 
 ### pomodoro
 

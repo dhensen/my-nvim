@@ -1,6 +1,6 @@
 local vim = vim
 local api = vim.api
-local timer = vim.loop.new_timer()
+local timer = vim.uv.new_timer()
 local os = require "os"
 
 local pomodoro_time = 25 * 60 -- 25 minutes in seconds

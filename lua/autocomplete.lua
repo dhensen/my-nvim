@@ -1,4 +1,5 @@
 local navic = require "nvim-navic"
+local wk = require "which-key"
 navic.setup()
 
 -- Use an on_attach function to only map the following keys
@@ -20,6 +21,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local function with_desc(desc)
             return vim.tbl_extend("force", bufopts, { desc = desc })
         end
+
+        wk.add {
+            { "<leader>c", group = "Code / Clipboard / Coverage", buffer = ev.buf },
+            { "<leader>f", group = "Find / Format", buffer = ev.buf },
+            { "<leader>r", group = "Run / Refactor", buffer = ev.buf },
+            { "<leader>w", group = "Workspace", buffer = ev.buf },
+        }
 
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, with_desc "Go to declaration")
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, with_desc "Go to definition")

@@ -1,5 +1,11 @@
 -- thanks to ret2src: https://github.com/neovim/nvim-lspconfig/issues/662#issuecomment-1706589179
 --
+local wk = require "which-key"
+
+wk.add {
+    { "<leader>i", group = "Diagnostics" },
+}
+
 -- Command to toggle inline diagnostics
 vim.api.nvim_create_user_command("DiagnosticsToggleVirtualText", function()
     local current_value = vim.diagnostic.config().virtual_text
@@ -12,12 +18,7 @@ end, {})
 
 -- Command to toggle diagnostics
 vim.api.nvim_create_user_command("DiagnosticsToggle", function()
-    local current_value = vim.diagnostic.is_disabled()
-    if current_value then
-        vim.diagnostic.enable()
-    else
-        vim.diagnostic.disable()
-    end
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, {})
 
 -- thanks to Paulobox: https://github.com/neovim/nvim-lspconfig/issues/662#issuecomment-2105390305

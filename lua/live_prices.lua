@@ -35,7 +35,7 @@ local function create_window()
     end
 
     buf = api.nvim_create_buf(false, true)
-    api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+    vim.bo[buf].bufhidden = "wipe"
 
     local width = 40
     local height = #selected_coins + 2
@@ -51,12 +51,12 @@ local function create_window()
 
     prices_win = api.nvim_open_win(buf, false, opts)
 
-    api.nvim_buf_set_option(buf, "modifiable", true)
+    vim.bo[buf].modifiable = true
     api.nvim_buf_set_lines(buf, 0, height, false, {
         string.rep("", height - 1),
         "[============================================================]",
     })
-    api.nvim_buf_set_option(buf, "modifiable", false)
+    vim.bo[buf].modifiable = false
 end
 
 local function update_window_position()
@@ -145,9 +145,9 @@ local function fetch_prices()
     local success, crypto_prices = pcall(vim.json.decode, crypto_result)
 
     if not success then
-        api.nvim_buf_set_option(buf, "modifiable", true)
+        vim.bo[buf].modifiable = true
         api.nvim_buf_set_lines(buf, 0, -1, false, { "Error fetching prices" })
-        api.nvim_buf_set_option(buf, "modifiable", false)
+        vim.bo[buf].modifiable = false
         return
     end
 
@@ -161,9 +161,9 @@ local function fetch_prices()
         end
     end
 
-    api.nvim_buf_set_option(buf, "modifiable", true)
+    vim.bo[buf].modifiable = true
     api.nvim_buf_set_lines(buf, 0, #lines, false, lines)
-    api.nvim_buf_set_option(buf, "modifiable", false)
+    vim.bo[buf].modifiable = false
 end
 
 local function show_prices()
@@ -182,7 +182,7 @@ local function show_prices()
         end
 
         if progress > 0 then
-            api.nvim_buf_set_option(buf, "modifiable", true)
+            vim.bo[buf].modifiable = true
             local progress_width = 40
             local scaled_progress = math.floor((progress / 60) * (progress_width - 2))
             local progress_bar = string.rep("=", scaled_progress)
@@ -194,7 +194,7 @@ local function show_prices()
                 false,
                 { string.format("[%s]", progress_bar) }
             )
-            api.nvim_buf_set_option(buf, "modifiable", false)
+            vim.bo[buf].modifiable = false
             progress = progress - 1
             vim.defer_fn(update_progress, 1000)
         else
@@ -237,7 +237,7 @@ local function select_coins()
     end
 
     local coin_buf = api.nvim_create_buf(false, true)
-    api.nvim_buf_set_option(coin_buf, "bufhidden", "wipe")
+    vim.bo[coin_buf].bufhidden = "wipe"
     vim.cmd "vsplit"
     local coin_win = api.nvim_get_current_win()
     api.nvim_win_set_buf(coin_win, coin_buf)
@@ -251,7 +251,7 @@ local function select_coins()
     end
 
     api.nvim_buf_set_lines(coin_buf, 0, -1, false, coin_lines)
-    api.nvim_buf_set_option(coin_buf, "modifiable", false)
+    vim.bo[coin_buf].modifiable = false
 
     local function toggle_selection(line)
         local coin_id = coins[line + 1].id
@@ -265,26 +265,18 @@ local function select_coins()
         save_config()
     end
 
-    api.nvim_buf_set_keymap(
-        coin_buf,
-        "n",
-        "<CR>",
-        "<cmd>lua live_prices.toggle_coin_selection()<CR>",
-        { noremap = true, silent = true }
-    )
-    api.nvim_buf_set_keymap(
-        coin_buf,
-        "n",
-        "<leader>s",
-        "<cmd>lua live_prices.save_and_close_selection()<CR>",
-        { noremap = true, silent = true }
-    )
+    vim.keymap.set("n", "<CR>", function()
+        live_prices.toggle_coin_selection()
+    end, { buffer = coin_buf, desc = "Toggle Coin Selection" })
+    vim.keymap.set("n", "<leader>s", function()
+        live_prices.save_and_close_selection()
+    end, { buffer = coin_buf, desc = "Save Coin Selection" })
 
     _G.live_prices = {
         toggle_coin_selection = function()
             local line = api.nvim_win_get_cursor(coin_win)[1] - 1
             toggle_selection(line)
-            api.nvim_buf_set_option(coin_buf, "modifiable", true)
+            vim.bo[coin_buf].modifiable = true
             local updated_lines = {}
             for _, coin in ipairs(coins) do
                 table.insert(
@@ -293,7 +285,7 @@ local function select_coins()
                 )
             end
             api.nvim_buf_set_lines(coin_buf, 0, -1, false, updated_lines)
-            api.nvim_buf_set_option(coin_buf, "modifiable", false)
+            vim.bo[coin_buf].modifiable = false
         end,
         save_and_close_selection = function()
             api.nvim_win_close(coin_win, true)

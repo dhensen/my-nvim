@@ -12,32 +12,43 @@ return {
             end,
             start_in_insert = false,
             on_open = function()
-                vim.keymap.set("n", "<C-q>", "<cmd>close<CR>",
-                               {buffer = true, noremap = true, silent = true})
-                vim.keymap.set("t", "<C-q>",
-                               "<C-\\><C-n><cmd>close<CR><C-w><C-p>",
-                               {buffer = true, noremap = true, silent = true})
-                vim.keymap.set("t", "<C-x>", "<C-\\><C-n>",
-                               {buffer = true, noremap = true, silent = true})
+                vim.keymap.set("n", "<C-q>", "<cmd>close<CR>", {
+                    buffer = true,
+                    noremap = true,
+                    silent = true,
+                    desc = "Close Terminal",
+                })
+                vim.keymap.set("t", "<C-q>", "<C-\\><C-n><cmd>close<CR><C-w><C-p>", {
+                    buffer = true,
+                    noremap = true,
+                    silent = true,
+                    desc = "Close Terminal",
+                })
+                vim.keymap.set("t", "<C-x>", "<C-\\><C-n>", {
+                    buffer = true,
+                    noremap = true,
+                    silent = true,
+                    desc = "Exit Terminal Mode",
+                })
                 vim.wo.cursorcolumn = false
                 vim.wo.cursorline = false
                 vim.cmd "wincmd="
             end,
             highlights = {
-                Normal = {link = "NormalFloat"},
-                NormalFloat = {link = "NormalFloat"},
-                FloatBorder = {link = "FloatBorder"}
+                Normal = { link = "NormalFloat" },
+                NormalFloat = { link = "NormalFloat" },
+                FloatBorder = { link = "FloatBorder" },
             },
             float_opts = {
-                border = {" ", " ", " ", " ", " ", " ", " ", " "},
+                border = { " ", " ", " ", " ", " ", " ", " ", " " },
                 winblend = 0,
                 width = vim.o.columns - 20,
                 height = vim.o.lines - 9,
                 highlights = {
                     border = "FloatBorder",
-                    background = "NormalFloat"
-                }
-            }
+                    background = "NormalFloat",
+                },
+            },
         }
-    end
+    end,
 }

@@ -16,7 +16,7 @@ function M.setup(opts)
                 local file_size = vim.fn.getfsize(vim.fn.expand "%:p")
                 if file_size > size_threshold then
                     local bufnr = vim.api.nvim_get_current_buf()
-                    local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+                    local clients = vim.lsp.get_clients { bufnr = bufnr }
                     for _, client in pairs(clients) do
                         vim.lsp.buf_detach_client(bufnr, client.id)
                     end
