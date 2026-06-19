@@ -9,7 +9,7 @@ return {
             auto_approve = true,
             extensions = {
                 avante = {
-                    enabled = true,
+                    enabled = false,
                     make_slash_commands = true,
                 },
             },
