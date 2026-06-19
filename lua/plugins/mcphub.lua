@@ -7,12 +7,6 @@ return {
     config = function()
         require("mcphub").setup {
             auto_approve = true,
-            extensions = {
-                avante = {
-                    enabled = false,
-                    make_slash_commands = true,
-                },
-            },
         }
     end,
 }
